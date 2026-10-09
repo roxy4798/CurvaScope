@@ -1,4 +1,4 @@
-# CurveScope demo runbook (offline)
+# CurveProof demo runbook (offline)
 
 This demo uses the repository's illustrative example recipes only. It makes no network calls, deployment, wallet connection, adoption, or performance claim.
 
@@ -33,4 +33,4 @@ The demo does not require **On-Chain Proof**. If that page is shown, it makes an
 
 ## Expected boundary statement
 
-“CurveScope helps compare and review analytical DBC recipes. It does not generate an Invent-compatible configuration or deploy a pool. Verify any actual configuration with current Meteora tooling.”
+“CurveProof helps compare and review analytical DBC recipes. It does not generate an Invent-compatible configuration or deploy a pool. Verify any actual configuration with current Meteora tooling.”
