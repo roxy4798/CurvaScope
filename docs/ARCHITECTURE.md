@@ -37,7 +37,7 @@ graph TD
 
 ### A. Domain Layer (`src/domain/`)
 - **`types.ts`**: Pure type models defining `LaunchRequirements`, `CurveSegment`, `DerivedRecipeMetrics`, `TradeOffSummary`, `ValidationResult`, and `MeteoraInventConfig`.
-- **`constants.ts`**: Official Meteora program IDs, migration keeper addresses, quote token presets (SOL, USDC, JUP, USD1, MET, JupUSD, TRUMP), and integer constraints (`FEE_DENOMINATOR = 1_000_000_000`, `MIN_FEE_BPS = 25`, `MAX_FEE_BPS = 9900`).
+- **`constants.ts`**: Meteora/Solana program identifiers, quote-token examples, and fee numeric constants. No migration-keeper identity or keeper-eligibility claim is made.
 
 ### B. Pure Mathematical Engine (`src/engine/`)
 Contains zero side effects and zero network dependencies; fully testable via unit tests:
@@ -52,7 +52,7 @@ Contains zero side effects and zero network dependencies; fully testable via uni
 - **`scenarioComparison.ts`**: Aggregates candidate recipes and separates selected exact input arithmetic from derived values and assumption-dependent analytical estimates. It does not claim SDK or on-chain simulation parity.
 
 ### C. Protocol & Tooling Adapters (`src/adapters/`)
-- **`meteora/inventSerializer.ts`**: Formats recipes into exact JSONC matching `studio/config/dbc_config.jsonc` in the official `meteora-invent` repository, as well as Markdown and CSV reports.
+- **`meteora/inventSerializer.ts`**: Contains local report/formatting helpers and readiness diagnostics. It does not provide a complete, validated Invent JSONC export; the user-facing Invent export remains disabled.
 - **`solana/readOnlyClient.ts`**: Safe, read-only on-chain RPC inspector using `@solana/web3.js` and official `@meteora-ag/dynamic-bonding-curve-sdk` with bounded timeouts and HTTP 429 rate-limit catches.
 
 ### D. Data & Factory (`src/data/`)
@@ -70,7 +70,7 @@ Contains zero side effects and zero network dependencies; fully testable via uni
 
 1. **Intake**: Builder enters target asset profile via `RequirementsWizardPage`.
 2. **Synthesis**: `recipeFactory` invokes `curveMath`, `feeMath`, and `tradeOffEngine` to generate segments and metrics.
-3. **Validation**: `validationEngine` verifies compliance against DBC SDK v1.5.13 bounds.
+3. **Validation**: `validationEngine` applies selected local rules and SDK helper checks using DBC SDK v1.5.13; this is not full protocol or Invent configuration validation.
 4. **Interactive Exploration**: Builder inspects curve shapes, trades off parameters, and tunes values live in `RecipeBuilderPage`.
 5. **Comparison**: Builder compares alternative structures in `ComparisonPage`.
 6. **Export**: Builder reports Invent readiness (no config export) or saves the recipe locally in `RecipeLibraryPage`.

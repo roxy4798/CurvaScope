@@ -36,11 +36,11 @@ export const EXAMPLE_REQUIREMENTS: LaunchRequirements[] = [
     },
     assumptions: [
       'Graduation target is an illustrative input; keeper operation is not guaranteed',
-      'Two-segment curve dampens initial bot sniper extraction',
-      'Dynamic fee active to discourage rapid toxic volatility',
+      'Two-segment curve is an illustrative shape; the model does not evaluate bot extraction',
+      'Dynamic fee settings are illustrative; market and volatility outcomes are not predicted',
     ],
     constraints: [
-      'Requires minimum 10 SOL quote reserve to trigger keeper',
+      'Quote threshold is an illustrative planning input; no universal minimum or keeper eligibility is asserted',
       '25% supply locked into DAMM v2 for 180 days',
     ],
   },
@@ -77,7 +77,7 @@ export const EXAMPLE_REQUIREMENTS: LaunchRequirements[] = [
       lockDurationDays: 365,
     },
     assumptions: [
-      'Stable USD quote mint allows NAV-anchored price progression',
+      'USD quote denomination does not peg the token price or establish NAV',
       'Ultra-low 25 bps fee preserves yield value for institutional participants',
     ],
     constraints: [
@@ -120,7 +120,7 @@ export const EXAMPLE_REQUIREMENTS: LaunchRequirements[] = [
     },
     assumptions: [
       'Quote choice and threshold are illustrative assumptions, not keeper guarantees',
-      'Mid-price checkpoint prevents speculative pump spikes before valuation consensus',
+      'Mid-price checkpoint is a builder input; it does not prevent price spikes or establish valuation',
     ],
     constraints: [
       'Not a registered security prospectus; purely experimental quantitative model',
@@ -145,7 +145,7 @@ export const EXAMPLE_REQUIREMENTS: LaunchRequirements[] = [
     percentageSupplyOnMigration: 20,
     buildCurveMode: 1, // buildCurveWithMarketCap
     feePreferences: {
-      baseFeeBps: 300, // 3.00% anti-sniper initial fee
+      baseFeeBps: 300, // 3.00% illustrative initial fee
       feeMode: 'linear_decay',
       decayDurationSeconds: 1800, // 30 minutes decay
       dynamicFeeEnabled: true,
@@ -160,7 +160,7 @@ export const EXAMPLE_REQUIREMENTS: LaunchRequirements[] = [
       lockDurationDays: 90,
     },
     assumptions: [
-      'Aggressive anti-sniper fee decay suppresses first-block bot advantages',
+      'Illustrative fee-decay schedule; bot behavior and launch outcomes are not modeled',
       'High creator fee share provides ongoing developer budget',
     ],
     constraints: [

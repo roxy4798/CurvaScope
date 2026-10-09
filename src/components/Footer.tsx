@@ -93,20 +93,20 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Column 4: Zero-Cost & Security Guarantee */}
+          {/* Column 4: Local and wallet boundary */}
           <div className="space-y-2">
             <div className="font-semibold text-slate-200 text-xs uppercase tracking-wider flex items-center space-x-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Zero-Cost Guarantee</span>
+              <span>Local and Read-Only</span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed">
-              No private keys requested. No wallet signing required. Zero paid APIs, databases, or subscriptions. All virtual curve math runs locally in deterministic TypeScript.
+              No private keys or wallet signatures are requested. Core planning needs no paid API, database, or subscription. Optional RPC inspection depends on an endpoint. Curve charts are estimates.
             </p>
           </div>
         </div>
 
         <div className="pt-6 border-t border-slate-900/80 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400">
-          <p>© 2026 CurveScope. Built for Crypto World's Fair — Meteora Track.</p>
+          <p>CurveScope · Crypto World's Fair — Meteora track planning MVP.</p>
           <p className="mt-2 sm:mt-0">
             Independent research & developer tooling. Not financial advice.
           </p>

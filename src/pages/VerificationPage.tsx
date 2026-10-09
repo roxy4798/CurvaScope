@@ -14,7 +14,6 @@ import {
   METEORA_DBC_PROGRAM_ID,
   METEORA_DBC_POOL_AUTHORITY,
   METEORA_DAMM_V2_PROGRAM_ID,
-  MIGRATION_KEEPERS,
 } from '../domain/constants';
 
 export const VerificationPage: React.FC = () => {
@@ -28,7 +27,6 @@ export const VerificationPage: React.FC = () => {
     { label: 'DBC Program ID', address: METEORA_DBC_PROGRAM_ID, desc: 'Core Meteora DBC program account' },
     { label: 'Pool Authority PDA', address: METEORA_DBC_POOL_AUTHORITY, desc: 'Program-derived pool authority' },
     { label: 'DAMM v2 Program', address: METEORA_DAMM_V2_PROGRAM_ID, desc: 'Graduation destination AMM program' },
-    { label: 'Migration Keeper', address: MIGRATION_KEEPERS[0], desc: 'Automated graduation bot account' },
   ];
 
   const handleVerify = async (targetAddress?: string) => {
@@ -130,9 +128,9 @@ export const VerificationPage: React.FC = () => {
         {/* Quick Sample Address Presets */}
         <div className="space-y-2 pt-2 border-t border-slate-800/60">
           <span className="text-[11px] text-slate-400">
-            Or test with verified on-chain Meteora accounts:
+            Inspect known Meteora program and authority addresses:
           </span>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {sampleAccounts.map((samp) => (
               <button
                 key={samp.label}

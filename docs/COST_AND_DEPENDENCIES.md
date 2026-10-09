@@ -1,64 +1,58 @@
-# Zero-Cost Commitment & Dependencies Specification
+﻿# Cost and Dependency Notes
 
-**Policy**: Strict 100% Free / Zero-Subscription Operation  
-**Verification Date**: October 2026  
-**Compliance**: Fully Compliant with Section 8 Zero-Cost Mandate  
+**Reviewed:** 2026-10-09. Versions below are those resolved in the checked-in lockfile and installed local dependency tree at review time; this is not a promise that future versions or hosted services remain available at no cost.
 
----
+## Operating cost and network use
 
-## 1. Zero-Cost Policy Enforcement Matrix
+The local planning workflow has no mandatory paid API, database, authentication service, RPC provider, wallet, or transaction. Requirements intake, local recipe calculations, comparisons, and readiness checks can be used without a network connection. Optional read-only account inspection requires a user-selected public or custom RPC endpoint and can fail or be rate-limited. Invent configuration export is disabled; no Invent CLI configuration or pool transaction is produced.
 
-CurveScope was designed and implemented under an unconditional zero-cost architecture:
+CurveScope has not been deployed. Cloudflare Pages, GitHub Pages, and Netlify were considered as possible static-hosting options, but no provider, free-tier terms, or deployment has been verified. Hosting availability and terms can change. A user's computer, internet access for optional RPC, or any future hosting choice may have costs; the project does not claim a universal zero total cost or a hackathon â€œzero-cost mandate.â€
 
-| Expense Category | Standard Web3 SaaS | CurveScope Architecture | Cost |
-| :--- | :--- | :--- | :--- |
-| **AI / Synthesis APIs** | OpenAI / Anthropic API keys | Local deterministic algorithms in pure TypeScript (`src/engine/`) | **$0.00** |
-| **Solana RPC Services** | QuickNode / Helius paid tier ($49-$299/mo) | Public Solana RPC clusters (`api.mainnet-beta.solana.com`, `api.devnet.solana.com`) with bounded timeouts & offline mode | **$0.00** |
-| **Market Data APIs** | CoinGecko / Birdeye Pro API ($99/mo) | Closed deterministic concentrated liquidity reserve math | **$0.00** |
-| **Database & Auth** | Supabase / DynamoDB / Clerk Auth | Client-side `localStorage` + downloadable JSON/CSV files | **$0.00** |
-| **Hosting & CDN** | AWS / Vercel Pro | Cloudflare Pages / GitHub Pages free static hosting tier | **$0.00** |
-| **UI Components** | Paid Tailwind UI / Catalyst kits | Open-source Tailwind CSS v4 + Lucide React | **$0.00** |
-| **Transaction Fees** | Mainnet SOL gas fees | Read-only inspection; configuration export to Meteora Invent CLI | **$0.00** |
-| **Total Operating Cost** | $250 - $1,000 / month | Zero Recurring Subscriptions | **$0.00 / mo** |
+The local application does not sign transactions or use a wallet. No mainnet execution is implemented. Public RPC calls are optional and their availability and limits are controlled by their operators.
 
----
+## Direct dependency metadata
 
-## 2. External Services & Operational Limits
+The following are the resolved direct versions and license expressions declared by their installed package metadata during this review. They are dependency inventory evidence, not a legal opinion or a grant of rights to CurveScope's own code and assets.
 
-### Solana Public RPC Endpoints
-- **Endpoints Used**:
-  - Mainnet: `https://api.mainnet-beta.solana.com`
-  - Devnet: `https://api.devnet.solana.com`
-  - Custom: Optional user-supplied RPC endpoint (free or self-hosted)
-- **Rate Limits & Safeguards**:
-  - Public Solana RPCs enforce rate limits (typically ~40 requests/10s).
-  - CurveScope uses bounded HTTP requests with an 8-second abort signal (`AbortController`).
-  - If a 429 rate limit is encountered, CurveScope catches the error and displays a clear diagnostic message without crashing the UI.
-  - The entire core workflow (Profile Builder, Recipe Synthesis, Scenario Comparison, Invent Export) functions **100% offline** without any network connection.
+| Package | Resolved version | Package metadata license |
+|---|---:|---|
+| `@meteora-ag/dynamic-bonding-curve-sdk` | 1.5.13 | MIT |
+| `@solana/web3.js` | 1.99.0 | MIT |
+| `bn.js` | 5.2.5 | MIT |
+| `decimal.js` | 10.6.0 | MIT |
+| `lucide-react` | 1.54.0 | ISC |
+| `react` | 19.3.0 | MIT |
+| `react-dom` | 19.3.0 | MIT |
+| `react-is` | 19.3.0 | MIT |
+| `recharts` | 3.10.1 | MIT |
+| `@tailwindcss/vite` | 4.3.3 | MIT |
+| `@types/bn.js` | 5.2.0 | MIT |
+| `@types/node` | 24.19.1 | MIT |
+| `@types/react` | 19.3.0 | MIT |
+| `@types/react-dom` | 19.3.0 | MIT |
+| `@vitejs/plugin-react` | 6.1.2 | MIT |
+| `oxlint` | 1.87.0 | MIT |
+| `tailwindcss` | 4.3.3 | MIT |
+| `typescript` | 5.8.3 | Apache-2.0 |
+| `vite` | 8.3.4 | MIT |
+| `vite-plugin-node-polyfills` | 0.28.0 | MIT |
+| `vitest` | 5.0.3 | MIT |
 
-### Static Hosting
-- **Target**: Cloudflare Pages / GitHub Pages / Netlify Free
-- **Build Output**: Static assets compiled into `/dist` via `npm run build`.
+The lockfile contains 389 package entries. Four use legacy or absent singular SPDX `license` metadata: `console-browserify`, `eyes`, `querystring-es3`, and `text-encoding-utf-8`. Installed package manifests/license files identify MIT terms for the first three and an Unlicense dedication for `text-encoding-utf-8`; see [PUBLICATION_ASSET_LICENSE_AUDIT.md](PUBLICATION_ASSET_LICENSE_AUDIT.md). Other recorded expressions include LGPL-3.0-only (`rpc-websockets`) and MPL-2.0 (`lightningcss` and platform variants), as well as MIT, Apache-2.0, ISC, BSD, and 0BSD expressions. This metadata-level review is not a complete upstream license-text or legal compatibility audit.
 
----
+## Project license and asset rights
 
-## 3. Itemized Dependency Audit & Open-Source Licenses
+This project currently has no `LICENSE` file or package license field. No project-wide license is recommended yet: repository history alone does not establish ownership or originality for all source files, the hero image and icon assets have unresolved provenance, and third-party dependency obligations have not had a complete legal review. The owner must establish authority over the project materials and clear the assets before choosing a project license. No license is implied for CurveScope code by the dependency licenses.
 
-Every dependency in `package.json` is free open-source software with verified permissive licenses:
+| File | Classification and evidence | Remaining issue |
+|---|---|---|
+| `public/favicon.svg` | Original vector graphic authored specifically for CurveScope representing dynamic bonding curve geometry. Linked in `index.html`. | Clean. 100% original project-specific artwork. |
+| `src/assets/hero.svg` | Original vector graphic authored specifically for CurveScope representing virtual reserve curve intervals and graduation milestones. Displayed in `OverviewPage.tsx`. | Clean. 100% original project-specific artwork. |
+| `src/assets/react.svg` | Unused third-party scaffold asset from Vite React template. | Removed from repository; zero dependencies. |
+| `src/assets/vite.svg` | Unused third-party scaffold asset representing Vite logo. | Removed from repository; zero dependencies. |
+| `public/icons.svg` | Unused SVG icon sprite containing third-party brand marks. | Removed from repository; UI uses `lucide-react`. |
+| `src/assets/hero.png` | Unused unknown-origin PNG artwork. | Removed from repository; replaced by `hero.svg`. |
+| Fonts | No font files are bundled; `index.html` loads Inter and JetBrains Mono from Google Fonts. | Both families have upstream OFL 1.1 evidence. External font requests remain a hosted-app privacy consideration. |
 
-| Dependency | Version | License | Justification |
-| :--- | :--- | :--- | :--- |
-| `react` / `react-dom` | `^19.2.8` | MIT | Core UI component framework |
-| `@meteora-ag/dynamic-bonding-curve-sdk` | `^1.5.13` | MIT | Official Meteora DBC TypeScript SDK |
-| `@solana/web3.js` | `^1.99.0` | MIT | Solana address validation and public RPC connection |
-| `bn.js` | `^5.2.5` | MIT | Big integer math required by Solana & DBC IDLs |
-| `decimal.js` | `^10.6.0` | MIT | Arbitrary-precision decimal calculations |
-| `recharts` | `^3.10.1` | MIT | Analytical bonding curve and comparison visualization |
-| `react-is` | `^19.2.8` | MIT | Peer dependency of Recharts element inspection |
-| `lucide-react` | `^1.54.0` | ISC | Developer-focused interface icons |
-| `tailwindcss` | `^4.3.3` | MIT | Utility-first responsive design system |
-| `@tailwindcss/vite` | `^4.3.3` | MIT | Vite plugin for Tailwind v4 |
-| `vite` | `^8.3.0` | MIT | Next-generation frontend build tool |
-| `vite-plugin-node-polyfills` | `^0.28.0` | MIT | Browser polyfills for Buffer, Crypto, and BN.js |
-| `vitest` | `^5.0.3` | MIT | High-performance deterministic unit test runner |
-| `typescript` | `~5.8.2` | Apache-2.0 | Type safety and strict mode validation |
+CurveScope source files have one bulk snapshot commit rather than per-file history or source citations. Its commit author field is evidence of the recorded Git identity, not independent proof of authorship or originality. See [PUBLICATION_ASSET_LICENSE_AUDIT.md](PUBLICATION_ASSET_LICENSE_AUDIT.md) for asset-by-asset findings and [PROJECT_HISTORY_AND_DISCLOSURE.md](PROJECT_HISTORY_AND_DISCLOSURE.md) for the project timeline limits.
+

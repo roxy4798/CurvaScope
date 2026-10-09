@@ -7,11 +7,6 @@ export const METEORA_LOCKER_PROGRAM_ID = 'LocpQgucEQHbqNABEYvBvwoxCPsSbG91A1QaQh
 export const METEORA_DYNAMIC_VAULT_PROGRAM_ID = '24Uqj9JCLxUeoC3hGfh5W3s9FM9uCHDS2SG3LYwBpyTi';
 export const METEORA_DBC_POOL_AUTHORITY = 'FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM';
 
-export const MIGRATION_KEEPERS = [
-  'Asi5DTGEeiso6k7ya6ndDabEZ7DRCgfTpCBLPH5E3aQs',
-  'DeQ8dPv6ReZNQ45NfiWwS5CchWpB2BVq1QMyNV8L2uSW',
-];
-
 export const QUOTE_MINT_PRESETS: QuoteMintPreset[] = [
   {
     symbol: 'SOL',

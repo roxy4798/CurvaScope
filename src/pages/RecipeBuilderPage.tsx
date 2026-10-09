@@ -303,7 +303,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
       {/* TAB 2: TRADE-OFFS & REASONS */}
       {activeTab === 'tradeoffs' && (
         <div className="space-y-6">
-          <p className="text-xs text-slate-400">These are qualitative trade-off explanations based on the selected inputs, not protocol ratings or outcome predictions.</p>
+          <p className="text-xs text-slate-400">These explanations use local input thresholds and modeled direct consequences. The High / Medium / Low tags are heuristic labels, not measured protocol risk, launch outcomes, or financial advice.</p>
 
           {/* Granular Trade-Off Dimension Items */}
           <div className="space-y-3">
@@ -327,7 +327,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
                           : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
                       }`}
                     >
-                      {item.riskSeverity} Risk
+                      {item.riskSeverity} Heuristic
                     </span>
                   </div>
 

@@ -21,6 +21,7 @@ Audit date: 2026-10-09. This audit checked the official [DBC formulas](https://d
 - Added explicit mode-5 ascending price checkpoints in the analytical wizard and mode-specific validation. Modes 1 and 3 do not require a direct migration percentage; mode 0 requires quote threshold; mode 3 requires 16 positive weights; mode 4 requires midpoint; mode 5 accepts optional segment weights.
 - Corrected labels that called locally checked recipes “Meteora validated”. They remain local input checks, not protocol validation.
 - Kept Invent config generation disabled. Readiness diagnostics identify missing fields; output remains an explanatory note, not JSONC presented as executable.
+- Removed unsupported migration-keeper identities and 10 SOL threshold language from the public-facing proposal copy; no keeper qualification or automatic migration guarantee is claimed.
 - Removed four unsupported composite `/100` ratings from the recipe UI, comparison metrics, type contract, and report generation. Trade-off explanations remain qualitative and input-specific.
 - Added requirement-flow collection for LP distribution/vesting, SDK-backed local checks, mode-aware migration selection, RPC evidence-source labeling and injected fault coverage, side-by-side parameter consequences, and lazy page loading.
 
@@ -44,7 +45,7 @@ Invent source at `dd77ef3d5aede3f0ff21d566d052097200417f5e` uses a JSONC parser 
 
 The official rules list Functionality, Potential Impact, Novelty, UX, Open-source, and Business Plan. The campaign FAQ also describes Founder + Market Fit, Insight, Product + Execution, Potential Market Size, Founder Communication, Viability, and Traction. These are distinct official source presentations; use the final portal's current instructions if anything changes.
 
-- **Functionality:** requirements wizard, recipe synthesis, comparison and readiness panel were manually exercised; 33 automated tests pass. Invent configuration validation/export and deployment are absent.
+- **Functionality:** requirements wizard, recipe synthesis, comparison and readiness panel were manually exercised; the recorded test run reports 34 automated tests. Invent configuration validation/export and deployment are absent.
 - **Potential Impact:** a local planner could help developers reason about DBC inputs; no market sizing or ecosystem impact evidence exists.
 - **Novelty:** requirements intake and direct scenario consequences are implemented; unique differentiation is unproven.
 - **UX:** mode-specific inputs, local validation messages, and estimate/readiness distinctions are visible; no independent usability testing exists.

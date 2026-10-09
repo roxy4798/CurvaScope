@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   Compass,
   Sliders,
@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import type { ActivePage } from '../components/Navbar';
 import { EXAMPLE_RECIPES } from '../data/exampleRecipes';
+import heroSvg from '../assets/hero.svg';
 
 interface OverviewPageProps {
   setActivePage: (page: ActivePage) => void;
@@ -28,7 +29,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 text-center space-y-6">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-mono">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Crypto World's Fair — Meteora Track MVP</span>
+          <span>Crypto World's Fair â€” Meteora Track MVP</span>
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-[1.15]">
@@ -66,6 +67,16 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>Verify Pool On-Chain</span>
           </button>
+        </div>
+
+        {/* Project-specific Hero Curve Graphic */}
+        <div className="pt-4 max-w-2xl mx-auto rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl bg-slate-950/60 p-2 sm:p-3">
+          <img
+            src={heroSvg}
+            alt="CurveScope dynamic bonding curve virtual reserve architecture"
+            className="w-full h-auto rounded-xl"
+            loading="lazy"
+          />
         </div>
       </section>
 
@@ -281,4 +292,6 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
     </div>
   );
 };
+
+
 

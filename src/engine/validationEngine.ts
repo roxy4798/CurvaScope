@@ -27,8 +27,8 @@ export function validateDbcRequirements(requirements: LaunchRequirements): Valid
   } else if (baseFeeBps > 500) {
     warnings.push({
       field: 'feePreferences.baseFeeBps',
-      message: `High base fee (${(baseFeeBps / 100).toFixed(2)}%) may deter legitimate retail volume during the curve phase.`,
-      tradeOffImplication: 'Maximizes fee collection against sniper bots but creates high friction for organic buyers.',
+      message: `High base-fee input (${(baseFeeBps / 100).toFixed(2)}%) increases modeled per-swap cost; actual demand response is not modeled.`,
+      tradeOffImplication: 'The configured base fee is high relative to the local comparison range; this does not predict fee revenue or bot behavior.',
     });
   }
 
@@ -93,7 +93,7 @@ export function validateDbcRequirements(requirements: LaunchRequirements): Valid
     });
   }
 
-  // 5. Quote Mint and Keeper Threshold
+  // 5. Quote mint and migration inputs
   rulesCheckedCount++;
   // Automated migrator eligibility is external operational policy and may change;
   // no quote-token minimum is asserted here without a current protocol source.

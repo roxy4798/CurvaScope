@@ -295,11 +295,11 @@ export const RequirementsWizardPage: React.FC<RequirementsWizardPageProps> = ({
             {/* Asset Category Selection */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
-                { id: 'ai_agent', label: 'AI Agent / Compute', desc: 'Volatility protection & fee decay' },
-                { id: 'rwa', label: 'RWA / Yield Bearer', desc: 'NAV-anchored & low fee drag' },
-                { id: 'tokenized_stock', label: 'Tokenized Stock Concept', desc: 'USD quote & calibrated mid-price' },
-                { id: 'meme_fair_launch', label: 'Meme Fair Launch', desc: 'Aggressive anti-sniper fee decay' },
-                { id: 'community_dao', label: 'Community DAO', desc: 'Ecosystem quote & liquidity depth' },
+                { id: 'ai_agent', label: 'AI Agent / Compute', desc: 'Illustrative volatility and fee inputs' },
+                { id: 'rwa', label: 'RWA / Yield Bearer', desc: 'Illustrative quote and migration inputs' },
+                { id: 'tokenized_stock', label: 'Tokenized Stock Concept', desc: 'USD quote and checkpoint inputs' },
+                { id: 'meme_fair_launch', label: 'Meme Fair Launch', desc: 'Illustrative curve and fee inputs' },
+                { id: 'community_dao', label: 'Community DAO', desc: 'Illustrative quote and liquidity inputs' },
                 { id: 'custom', label: 'Custom Specification', desc: 'Mode 3 liquidity-weight inputs' },
               ].map((cat) => (
                 <button
@@ -641,7 +641,7 @@ export const RequirementsWizardPage: React.FC<RequirementsWizardPageProps> = ({
                 4. Trading Fee Schedule & Splits
               </h3>
               <p className="text-xs text-slate-400 mt-1">
-                Configure base fees, anti-sniper fee decay schedules, and dynamic volatility mechanisms.
+                Configure base fees, decay schedules, and volatility-related inputs. These settings do not guarantee resistance to bots or predict market outcomes.
               </p>
             </div>
 
@@ -665,7 +665,7 @@ export const RequirementsWizardPage: React.FC<RequirementsWizardPageProps> = ({
               <div className="flex justify-between text-[10px] text-slate-400 mt-1">
                 <span>25 bps (0.25% min)</span>
                 <span>100 bps (1.00% default)</span>
-                <span>500 bps (5.00% anti-sniper)</span>
+                <span>500 bps (5.00% slider maximum)</span>
               </div>
             </div>
 

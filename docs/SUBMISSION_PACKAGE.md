@@ -74,7 +74,7 @@ The Colosseum project FAQ and official rules are primary; inspect the live submi
 - [ ] Presentation video, **2–3 minutes**.
 - [ ] Product demo video, **3 minutes maximum**.
 - [ ] Go-to-market strategy, demand validation, and distribution plan.
-- [ ] Disclose relevant development work completed before **September 14, 2026**. Do not infer the history from the current directory, which is not a Git repository.
+- [ ] Disclose relevant development work completed before **September 14, 2026**. The current directory has a local Git repository, but its first recorded commit is not proof of the project start date; review [PROJECT_HISTORY_AND_DISCLOSURE.md](PROJECT_HISTORY_AND_DISCLOSURE.md) and resolve the owner questions before submitting.
 - [ ] Check eligibility and accept current official rules in the portal.
 - [ ] Review and disclose ownership/status of third-party code and IP as requested by the rules.
 
