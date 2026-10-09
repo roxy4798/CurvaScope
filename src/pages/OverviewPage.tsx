@@ -29,18 +29,18 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 text-center space-y-6">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-mono">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Crypto World's Fair â€” Meteora Track MVP</span>
+          <span>Meteora DBC · Builder Intelligence</span>
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-[1.15]">
-          Evidence-Driven Configuration for Better Asset Launches on{' '}
+          Plan DBC launch recipes with transparent assumptions on{' '}
           <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-sky-400 bg-clip-text text-transparent">
             Meteora DBC
           </span>
         </h1>
 
         <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Turn launch requirements into reusable analytical recipes, comparisons, and optional read-only pool inspection. Invent configuration export is disabled.
+          Compare candidate launch parameters and review local checks before using Meteora Invent. Charts are estimates; official Invent export and validation are not yet available.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
@@ -73,7 +73,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         <div className="pt-4 max-w-2xl mx-auto rounded-2xl overflow-hidden border border-slate-800/80 shadow-2xl bg-slate-950/60 p-2 sm:p-3">
           <img
             src={heroSvg}
-            alt="CurveScope dynamic bonding curve virtual reserve architecture"
+            alt="CurveProof analytical DBC curve illustration (not an on-chain quote)"
             className="w-full h-auto rounded-xl"
             loading="lazy"
           />
@@ -91,7 +91,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
             Meteora DBC exposes multiple curve builders, configurable fee behavior, and post-graduation migration choices. The available inputs depend on the selected builder mode.
           </p>
           <p className="text-sm text-slate-400 leading-relaxed">
-            Choosing among those parameters requires understanding their interactions. CurveScope provides local analytical comparisons while clearly labeling estimates and configuration gaps.
+            Choosing among those parameters requires understanding their interactions. CurveProof provides local analytical comparisons while clearly labeling estimates and configuration gaps.
           </p>
         </div>
 
@@ -99,12 +99,12 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center border border-orange-500/20">
             <Cpu className="w-5 h-5" />
           </div>
-          <h3 className="text-xl font-bold text-white">The CurveScope Solution</h3>
+          <h3 className="text-xl font-bold text-white">The CurveProof Solution</h3>
           <p className="text-sm text-slate-300 leading-relaxed">
-            CurveScope acts as an <strong>Asset Launch Recipe Lab</strong>. You define requirements: asset type (AI, RWA, Tokenized Stock, Meme), quote currency, and raise target.
+            CurveProof acts as an <strong>Asset Launch Recipe Lab</strong>. You define requirements: asset type (AI, RWA, Tokenized Stock, Meme), quote currency, and raise target.
           </p>
           <p className="text-sm text-slate-400 leading-relaxed">
-            CurveScope organizes requirements, illustrates trade-offs, and compares candidate recipes. Its mode geometry is analytical, and Invent configuration export is disabled.
+            CurveProof organizes requirements, illustrates trade-offs, and compares candidate recipes. Its mode geometry is analytical, and Invent configuration export is disabled.
           </p>
         </div>
       </section>
