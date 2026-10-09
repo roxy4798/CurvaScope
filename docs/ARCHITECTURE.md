@@ -1,78 +1,55 @@
-# CurveScope Architecture Specification
+# CurveScope Architecture
 
-**Product Direction**: Asset Launch Recipe Lab for Meteora DBC & DAMM v2  
-**Platform Target**: Solana / Meteora Protocol  
-**Repository Structure**: Monorepo / React + Vite + TypeScript Strict Mode  
+CurveScope is a local-first analytical planning MVP for Meteora Dynamic Bonding Curve (DBC) launches. Its architecture separates user input, local recipe calculations, selected input checks, scenario comparison, and optional read-only account inspection.
 
----
-
-## 1. High-Level System Architecture
-
-CurveScope is structured as a **deterministic, local-first analytical lab**. All economic simulations, parameter synthesis, and protocol validations run client-side without proprietary backend servers or paid APIs.
+## High-level flow
 
 ```mermaid
 graph TD
-    A[Builder Requirements Intake] --> B[Launch Profile Wizard]
-    B --> C[Protocol Validation Engine]
-    B --> D[Pure Virtual Reserve Engine]
-    D --> E[Curve Segment Generator]
-    D --> F[Fee & Decay Engine]
-    D --> G[Trade-Off Scoring Engine]
-    C --> H[Validated DBC Recipe]
-    E --> H
-    F --> H
-    G --> H
-    H --> I[Recipe Builder Lab]
-    H --> J[Multi-Scenario Comparison]
-    H --> K[Invent readiness diagnostics (export disabled)]
-    K --> L[dbc_config.jsonc Output]
-    H --> M[Local Storage Preset Library]
-    N[Solana Public RPC] --> O[Read-Only On-Chain Verification]
-    O --> P[Official DBC SDK StateService]
+    A[Launch requirements] --> B[Mode-specific wizard]
+    B --> C[Local input checks]
+    B --> D[Analytical curve model]
+    D --> E[Estimated charts and metrics]
+    C --> F[Recipe and readiness summary]
+    E --> F
+    F --> G[Recipe library]
+    F --> H[Three-scenario comparison]
+    F --> I[Invent readiness diagnostics]
+    J[Optional public RPC] --> K[Read-only account inspection]
 ```
 
----
+## Layers
 
-## 2. Layer Separation & Design Boundaries
+### Domain and engine
 
-### A. Domain Layer (`src/domain/`)
-- **`types.ts`**: Pure type models defining `LaunchRequirements`, `CurveSegment`, `DerivedRecipeMetrics`, `TradeOffSummary`, `ValidationResult`, and `MeteoraInventConfig`.
-- **`constants.ts`**: Meteora/Solana program identifiers, quote-token examples, and fee numeric constants. No migration-keeper identity or keeper-eligibility claim is made.
+- `src/domain/`: TypeScript models for launch requirements, recipes, validation, and derived metrics.
+- `src/engine/`: floating-point curve estimates, fee arithmetic, mode-specific local checks, and qualitative trade-off explanations.
+- Curve visualizations are analytical estimates. They do not claim exact SDK rounding, protocol parity, or on-chain simulation.
 
-### B. Pure Mathematical Engine (`src/engine/`)
-Contains zero side effects and zero network dependencies; fully testable via unit tests:
-- **`curveMath.ts`**: Exact concentrated-liquidity virtual reserve calculations:
-  - $\Delta \text{Base} = L \cdot \left(\frac{1}{\sqrt{P_a}} - \frac{1}{\sqrt{P_b}}\right)$
-  - $\Delta \text{Quote} = L \cdot (\sqrt{P_b} - \sqrt{P_a})$
-  - Curve generation for modes 0 through 5 (single segment, two segment, 16 weighted segments, mid-price anchor).
-  - Multi-checkpoint slippage progression modeling (25%, 50%, 75%, 100%).
-- **`feeMath.ts`**: Base fee numerators, fee scheduler decay algorithms (linear and exponential decay), the documented DBC trading-fee split, creator/partner allocation of the configured non-protocol share, and post-graduation surplus division. These values are separate from migrated LP ownership.
-- **`validationEngine.ts`**: Selected local input checks for mode parameters and fee ranges; no keeper eligibility claim.
-- **`tradeOffEngine.ts`**: Qualitative benefit/drawback explanations tied to selected recipe parameters; no composite ratings or outcome predictions.
-- **`scenarioComparison.ts`**: Aggregates candidate recipes and separates selected exact input arithmetic from derived values and assumption-dependent analytical estimates. It does not claim SDK or on-chain simulation parity.
+### Meteora and Solana adapters
 
-### C. Protocol & Tooling Adapters (`src/adapters/`)
-- **`meteora/inventSerializer.ts`**: Contains local report/formatting helpers and readiness diagnostics. It does not provide a complete, validated Invent JSONC export; the user-facing Invent export remains disabled.
-- **`solana/readOnlyClient.ts`**: Safe, read-only on-chain RPC inspector using `@solana/web3.js` and official `@meteora-ag/dynamic-bonding-curve-sdk` with bounded timeouts and HTTP 429 rate-limit catches.
+- `src/adapters/meteora/inventSerializer.ts`: readiness diagnostics and report formatting. It does not generate a complete validated Invent configuration; export remains disabled.
+- `src/adapters/solana/readOnlyClient.ts`: optional read-only RPC account inspection using Solana web3.js and the installed Meteora DBC SDK. Provider availability and rate limits are outside the app's control.
 
-### D. Data & Factory (`src/data/`)
-- **`recipeFactory.ts`**: Deterministic constructor turning raw launch requirements into full, validated recipes.
-- **`exampleRecipes.ts`**: 6 illustrative example recipes; these are not battle-tested, endorsed, or optimized configurations.
+### Data and UI
 
-### E. Presentation Layer (`src/components/`, `src/pages/`)
-- React 19 + Tailwind CSS v4 design system with dark navy glassmorphism.
-- Interactive Recharts charts for bonding curves and comparative multi-scenario curves.
-- LocalStorage client-side persistence for user-created launch recipes.
+- `src/data/recipeFactory.ts`: constructs a recipe from user requirements.
+- `src/data/exampleRecipes.ts`: illustrative examples, not endorsed or optimized configurations.
+- `src/pages/` and `src/components/`: React UI, charts, wizard, library, readiness diagnostics, and comparison views.
+- User-created recipe persistence is client-side.
 
----
+## Execution boundaries
 
-## 3. Data Flow & Execution Pipeline
+1. A user enters launch requirements in the wizard.
+2. The recipe factory calculates analytical metrics and visual segments.
+3. Local validation and selected installed-SDK helper checks evaluate supported inputs. These checks do not constitute full protocol or Invent configuration validation.
+4. The user inspects charts, assumptions, and qualitative parameter differences.
+5. The user compares three recipes and reviews readiness diagnostics.
+6. Optional account inspection can make read-only RPC requests. It is not required for the core planning workflow.
 
-1. **Intake**: Builder enters target asset profile via `RequirementsWizardPage`.
-2. **Synthesis**: `recipeFactory` invokes `curveMath`, `feeMath`, and `tradeOffEngine` to generate segments and metrics.
-3. **Validation**: `validationEngine` applies selected local rules and SDK helper checks using DBC SDK v1.5.13; this is not full protocol or Invent configuration validation.
-4. **Interactive Exploration**: Builder inspects curve shapes, trades off parameters, and tunes values live in `RecipeBuilderPage`.
-5. **Comparison**: Builder compares alternative structures in `ComparisonPage`.
-6. **Export**: Builder reports Invent readiness (no config export) or saves the recipe locally in `RecipeLibraryPage`.
-7. **Verification**: Builder verifies live pool accounts on Solana mainnet/devnet via `VerificationPage`.
+## Explicit non-goals
 
+- No wallet connection, signing, transaction submission, or deployment.
+- No complete Invent JSONC serializer, official parser acceptance, or executable Invent config export.
+- No claim that analytical charts match SDK or on-chain output.
+- No composite score, profitability forecast, or guaranteed graduation outcome.
