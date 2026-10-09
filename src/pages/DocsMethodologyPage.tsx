@@ -15,10 +15,10 @@ export const DocsMethodologyPage: React.FC = () => {
           <span>Documentation & Mathematical Foundation</span>
         </div>
         <h2 className="text-3xl font-extrabold text-white tracking-tight">
-          CurveScope Protocol Methodology
+          CurveProof Protocol Methodology
         </h2>
         <p className="text-sm text-slate-400 max-w-2xl mx-auto">
-          Explanatory curve math, fee distinctions, migration boundaries, and CurveScope's local-planning limits.
+          Explanatory curve math, fee distinctions, migration boundaries, and CurveProof's local-planning limits.
         </p>
       </div>
 
@@ -39,7 +39,7 @@ export const DocsMethodologyPage: React.FC = () => {
         </div>
 
         <p className="text-xs text-slate-300 leading-relaxed">
-          Meteora DBC offers mode-specific curve builders based on concentrated-liquidity math. Some builder inputs use up to 16 liquidity weights; other modes use different inputs such as market caps, a midpoint, or custom price checkpoints. CurveScope's charts are analytical models and do not reproduce every builder's segment construction or on-chain rounding. Unlike a constant-product model (x · y = k) with liquidity extending from zero to infinity, a concentrated-liquidity interval bounds virtual liquidity L between P_lower and P_upper.
+          Meteora DBC offers mode-specific curve builders based on concentrated-liquidity math. Some builder inputs use up to 16 liquidity weights; other modes use different inputs such as market caps, a midpoint, or custom price checkpoints. CurveProof's charts are analytical models and do not reproduce every builder's segment construction or on-chain rounding. Unlike a constant-product model (x · y = k) with liquidity extending from zero to infinity, a concentrated-liquidity interval bounds virtual liquidity L between P_lower and P_upper.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
@@ -149,7 +149,7 @@ export const DocsMethodologyPage: React.FC = () => {
         </div>
 
         <p className="text-xs text-slate-300 leading-relaxed">
-          CurveScope does not model or verify keeper services, quote-mint eligibility thresholds, or automatic migration timing. Graduation behavior and related quote or supply settings depend on the selected DBC builder and configured pool parameters. Any displayed curve quantities are estimates, not proof that a pool will graduate or migrate. Complete and validate the configuration with current Meteora tooling.
+          CurveProof does not model or verify keeper services, quote-mint eligibility thresholds, or automatic migration timing. Graduation behavior and related quote or supply settings depend on the selected DBC builder and configured pool parameters. Any displayed curve quantities are estimates, not proof that a pool will graduate or migrate. Complete and validate the configuration with current Meteora tooling.
         </p>
       </section>
 
