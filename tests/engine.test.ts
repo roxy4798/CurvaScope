@@ -22,6 +22,16 @@ import { isValidPublicKey } from '../src/adapters/solana/readOnlyClient';
 import { MigrationOption, getLiquidityVestingInfoParams } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { validateLiquidityDistributionWithSdk } from '../src/engine/inventConstraints';
 import { explainScenarioDifferences } from '../src/engine/scenarioInsights';
+import { makeUniqueRecipeId } from '../src/data/recipeFactory';
+
+describe('Recipe identity safety', () => {
+  it('does not reuse an example or collide with an existing custom recipe', () => {
+    const exampleId = EXAMPLE_RECIPES[0].id;
+    const uniqueId = makeUniqueRecipeId(exampleId, [exampleId, `${exampleId}-copy-2`]);
+    expect(uniqueId).toBe(`${exampleId}-copy-3`);
+    expect(new Set([exampleId, `${exampleId}-copy-2`, uniqueId]).size).toBe(3);
+  });
+});
 
 describe('CurveScope Engine - Virtual Curve Mathematics', () => {
   it('calculates virtual liquidity and reversibility correctly', () => {

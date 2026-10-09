@@ -36,7 +36,7 @@ Invent source at `dd77ef3d5aede3f0ff21d566d052097200417f5e` uses a JSONC parser 
 
 **Implemented:** local requirements-to-recipe wizard; analytical chart; recipe library; three-recipe comparison and parameter consequence explanations; local mode-specific validation; LP allocation and vesting inputs; SDK-backed local LP checks; read-only SDK state inspection; injected RPC evidence labeling; Invent readiness checklist; export disabled; lazy page loading; free local workflow.
 
-**Tested in this run:** 33 unit tests across 3 test files, including mode-required parameters, fee boundaries/shares, mode 5 structure, LP total/lock constraints, export-disabled readiness, SDK builders for modes 0–5, RPC invalid keys/missing/wrong-owner/undecodable accounts, injected 429/timeout/unavailable cases, and trade-off behavior; lint; TypeScript and production build.
+**Tested in this run:** 34 unit tests across 3 test files, including mode-required parameters, fee boundaries/shares, mode 5 structure, LP total/lock constraints, export-disabled readiness, SDK builders for modes 0–5, RPC invalid keys/missing/wrong-owner/undecodable accounts, injected 429/timeout/unavailable cases, recipe ID collision prevention, and trade-off behavior; lint; TypeScript and production build.
 
 **Not implemented or not verified:** complete Invent configuration draft UI/serializer, official parser acceptance, JSONC round trip, full collection of DBC/DAMM fee unions, locked token vesting and all conditional fields, live-provider RPC reliability, CurveScope-vs-SDK curve parity, project development history before September 14, 2026, demonstrated competitor differentiation, user adoption or volume.
 
@@ -55,9 +55,9 @@ The official rules list Functionality, Potential Impact, Novelty, UX, Open-sourc
 
 ## Final command results (2026-10-09)
 
-- `npm test`: exit 0; 3 test files passed, 33 tests passed.
+- `npm test`: exit 0; 3 test files passed, 34 tests passed.
 - `npm run lint`: exit 0; oxlint produced no diagnostics.
-- `npm run build`: exit 0; `tsc -b` and Vite production build passed. Route/page, chart, and SDK chunks are split. The largest chunk is the Solana/Meteora SDK at 768.03 kB (198.97 kB gzip); main JS is 251.05 kB (78.82 kB gzip), chart chunk is 329.91 kB (95.95 kB gzip), CSS 49.99 kB (8.48 kB gzip). The final build command printed no chunk warning, though the SDK chunk remains above 500 kB.
+- `npm run build`: exit 0; `tsc -b` and Vite production build passed. Route/page, chart, and SDK chunks are split. Vite emitted the >500 kB chunk warning for the Solana/Meteora SDK chunk at 768.03 kB (198.97 kB gzip); main JS is 251.22 kB (78.90 kB gzip), chart chunk is 329.91 kB (95.95 kB gzip), CSS 49.99 kB (8.48 kB gzip).
 - SDK builder test scope: tests invoke all six installed builder functions with distinct valid inputs. They do not check CurveScope math parity.
 - RPC tests inject transport/account behavior; no live provider integration was run. Not run: Invent parser/CLI validation, JSONC round trip, or live state integration cases. No successful result is claimed for these.
 

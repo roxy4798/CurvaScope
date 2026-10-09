@@ -3,6 +3,19 @@ import { generateCurveSegments, computeDerivedMetrics } from '../engine/curveMat
 import { analyzeTradeOffs } from '../engine/tradeOffEngine';
 import { validateDbcRequirements } from '../engine/validationEngine';
 
+/** Ensures a generated recipe cannot overwrite an example or another saved recipe. */
+export function makeUniqueRecipeId(preferredId: string, existingIds: string[]): string {
+  const existing = new Set(existingIds);
+  if (!existing.has(preferredId)) return preferredId;
+  let suffix = 2;
+  let candidate = `${preferredId}-copy-${suffix}`;
+  while (existing.has(candidate)) {
+    suffix += 1;
+    candidate = `${preferredId}-copy-${suffix}`;
+  }
+  return candidate;
+}
+
 /**
  * Deterministically constructs a full, validated DBC Recipe from launch requirements.
  */

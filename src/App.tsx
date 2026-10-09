@@ -11,7 +11,7 @@ const VerificationPage = lazy(() => import('./pages/VerificationPage').then((mod
 const DocsMethodologyPage = lazy(() => import('./pages/DocsMethodologyPage').then((module) => ({ default: module.DocsMethodologyPage })));
 import type { DbcRecipe, LaunchRequirements } from './domain/types';
 import { EXAMPLE_RECIPES } from './data/exampleRecipes';
-import { buildFullRecipe } from './data/recipeFactory';
+import { buildFullRecipe, makeUniqueRecipeId } from './data/recipeFactory';
 
 export const App: React.FC = () => {
   const [activePage, setActivePage] = useState<ActivePage>('overview');
@@ -69,8 +69,12 @@ export const App: React.FC = () => {
   };
 
   const handleSynthesizeRecipe = (requirements: LaunchRequirements) => {
+    const requirementsWithUniqueId = {
+      ...requirements,
+      id: makeUniqueRecipeId(requirements.id, recipes.map((recipe) => recipe.id)),
+    };
     const newRecipe = buildFullRecipe(
-      requirements,
+      requirementsWithUniqueId,
       false,
       `Custom Meteora DBC launch configuration for ${requirements.tokenName} (${requirements.tokenSymbol}).`
     );
