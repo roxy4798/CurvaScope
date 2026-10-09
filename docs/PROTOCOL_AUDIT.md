@@ -1,6 +1,6 @@
 # Meteora DBC References and Validation Boundaries
 
-This document summarizes the public protocol references consulted during development and states what CurveScope does—and does not—validate. It is not a security audit, official Meteora review, or guarantee of compatibility with future SDK/config versions.
+This document summarizes the public protocol references consulted during development and states what CurveProof does—and does not—validate. It is not a security audit, official Meteora review, or guarantee of compatibility with future SDK/config versions.
 
 ## References consulted
 
@@ -22,7 +22,7 @@ The inspected local SDK version was `@meteora-ag/dynamic-bonding-curve-sdk@1.5.1
 
 These notes summarize inspected sources and are not a substitute for checking the current official configuration and SDK contracts.
 
-## What CurveScope implements
+## What CurveProof implements
 
 - Requirements-to-recipe workflow for DBC builder modes 0–5.
 - Local mode-specific input checks and selected helper validation using the installed SDK.
@@ -32,12 +32,12 @@ These notes summarize inspected sources and are not a substitute for checking th
 
 ## Important limits
 
-- CurveScope uses floating-point analytical estimates. It does not reproduce all SDK integer rounding, derive every official parameter, or simulate on-chain state exactly.
-- SDK builder tests using structurally valid examples do not prove that CurveScope's charts match SDK or on-chain outputs.
+- CurveProof uses floating-point analytical estimates. It does not reproduce all SDK integer rounding, derive every official parameter, or simulate on-chain state exactly.
+- SDK builder tests using structurally valid examples do not prove that CurveProof's charts match SDK or on-chain outputs.
 - Selected SDK helper checks are not full Invent parser/config validation.
 - The current recipe model does not capture every Invent configuration field or conditional union.
 - No complete serializer round-trip or reproducible official Invent parser-acceptance test has been established.
-- Invent-compatible export remains disabled. CurveScope does not create executable Invent JSONC, sign transactions, or deploy pools.
+- Invent-compatible export remains disabled. CurveProof does not create executable Invent JSONC, sign transactions, or deploy pools.
 - Optional RPC inspection depends on endpoint availability and may be rate-limited. Unit tests with injected dependencies do not prove end-to-end live-provider reliability.
 - No user adoption, transaction volume, endorsement, market differentiation, or profitability claim is established by these technical checks.
 
