@@ -6,13 +6,13 @@ Reviewed: 2026-10-09. Versions below reflect package metadata and the checked-in
 
 The core local planning workflow has no mandatory paid API, database, authentication service, RPC provider, wallet, or transaction. Requirements intake, local recipe calculations, comparisons, and readiness checks run in the client. Optional read-only account inspection requires a user-selected public or custom RPC endpoint and may fail or be rate-limited. Invent configuration export is disabled; no executable Invent configuration or pool transaction is produced.
 
-CurveScope has not been deployed. Cloudflare Pages, GitHub Pages, and Netlify are possible hosting options, but no provider, free-tier terms, or deployment has been verified. Hosting availability and terms can change. The project does not claim a universal zero total cost.
+CurveProof has not been deployed. Cloudflare Pages, GitHub Pages, and Netlify are possible hosting options, but no provider, free-tier terms, or deployment has been verified. Hosting availability and terms can change. The project does not claim a universal zero total cost.
 
 The application does not sign transactions or use a wallet. No mainnet execution is implemented. Optional public RPC availability and limits are controlled by endpoint operators.
 
 ## Direct dependency metadata
 
-The following are package metadata license expressions recorded during review. This inventory is not a legal opinion or a license grant for CurveScope's own code and assets.
+The following are package metadata license expressions recorded during review. This inventory is not a legal opinion or a license grant for CurveProof's own code and assets.
 
 | Package | Resolved version | Package metadata license |
 |---|---:|---|
@@ -42,6 +42,6 @@ The lockfile contains transitive packages with additional license expressions, i
 
 ## Project license and asset rights
 
-This repository does not currently include a project-wide `LICENSE` file. Third-party dependency licenses do not automatically grant a license to CurveScope's own source or assets. No project-wide reuse permission is implied. The owner should confirm rights and attribution for project-authored materials and any third-party assets before choosing a license.
+This repository does not currently include a project-wide `LICENSE` file. Third-party dependency licenses do not automatically grant a license to CurveProof's own source or assets. No project-wide reuse permission is implied. The owner should confirm rights and attribution for project-authored materials and any third-party assets before choosing a license.
 
 The HTML references Inter and JetBrains Mono through Google Fonts rather than bundling font binaries. This means the hosted UI may contact Google Fonts when those resources are loaded; this is a network/privacy consideration for hosted use.
