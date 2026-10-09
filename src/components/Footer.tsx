@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
             <div className="flex items-center space-x-2">
               <span className="font-bold text-white text-sm">CurveScope</span>
               <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
-                100% Free / Open Source
+                Free / Local-first
               </span>
             </div>
             <p className="text-slate-400 leading-relaxed text-xs">

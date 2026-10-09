@@ -75,7 +75,7 @@ export const RecipeLibraryPage: React.FC<RecipeLibraryPageProps> = ({
           DBC Configuration Preset Hub
         </h2>
         <p className="text-sm text-slate-400 max-w-2xl mx-auto">
-          Search, fork, and export verified launch profiles across all asset classes. Local-first architecture with zero mandatory accounts or fees.
+          Browse illustrative launch recipes, compare their inputs, and review export readiness. Invent configuration export remains disabled.
         </p>
       </div>
 
@@ -158,7 +158,7 @@ export const RecipeLibraryPage: React.FC<RecipeLibraryPageProps> = ({
                 <div className="flex items-center space-x-1.5">
                   {recipe.isExample ? (
                     <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30">
-                      Curated Preset
+                      Illustrative Preset
                     </span>
                   ) : (
                     <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-purple-500/10 text-purple-400 border border-purple-500/30">

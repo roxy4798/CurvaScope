@@ -77,10 +77,10 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
           </div>
           <h3 className="text-xl font-bold text-white">The Builder Problem</h3>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Meteora DBC gives creators incredible freedom: up to 16 curve segments, scheduled fee decays, dynamic MEV traps, and concentrated DAMM v2 migration.
+            Meteora DBC exposes multiple curve builders, configurable fee behavior, and post-graduation migration choices. The available inputs depend on the selected builder mode.
           </p>
           <p className="text-sm text-slate-400 leading-relaxed">
-            However, selecting parameters without quantitative tools is dangerous. Misconfigured curves cause slippage walls, high fees deter retail volume, and underfunded migration thresholds starve post-graduation liquidity.
+            Choosing among those parameters requires understanding their interactions. CurveScope provides local analytical comparisons while clearly labeling estimates and configuration gaps.
           </p>
         </div>
 
@@ -199,7 +199,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               <li>Price progression is deterministic concentrated-liquidity virtual math.</li>
               <li>Slippage models assume isolated trading without external arb pressure.</li>
               <li>No historical price or volume is fabricated; there is no universally optimal curve.</li>
-              <li>Scoring metrics (Capital Efficiency, Sniper Defense) are documented heuristics.</li>
+              <li>No composite outcome scores are used; scenario insights describe selected input differences.</li>
             </ul>
           </div>
         </div>
@@ -213,7 +213,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
               Curated Asset Class Recipes
             </h3>
             <p className="text-xs text-slate-400">
-              Explore battle-tested launch profiles tailored for specific economic use-cases.
+              Explore illustrative engineering profiles for different example use cases.
             </p>
           </div>
 

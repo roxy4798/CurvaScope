@@ -38,23 +38,26 @@ Invent source at `dd77ef3d5aede3f0ff21d566d052097200417f5e` uses a JSONC parser 
 
 **Tested in this run:** 33 unit tests across 3 test files, including mode-required parameters, fee boundaries/shares, mode 5 structure, LP total/lock constraints, export-disabled readiness, SDK builders for modes 0–5, RPC invalid keys/missing/wrong-owner/undecodable accounts, injected 429/timeout/unavailable cases, and trade-off behavior; lint; TypeScript and production build.
 
-**Not implemented or not verified:** complete Invent configuration draft UI/serializer, official parser acceptance, JSONC round trip, full collection of DBC/DAMM fee unions, locked token vesting and all conditional fields, live-provider RPC reliability, CurveScope-vs-SDK curve parity, current hackathon brief confirmation, demonstrated competitor differentiation, user adoption or volume.
+**Not implemented or not verified:** complete Invent configuration draft UI/serializer, official parser acceptance, JSONC round trip, full collection of DBC/DAMM fee unions, locked token vesting and all conditional fields, live-provider RPC reliability, CurveScope-vs-SDK curve parity, project development history before September 14, 2026, demonstrated competitor differentiation, user adoption or volume.
 
-## Judging evidence (provisional; official brief not supplied)
+## Crypto World's Fair judging evidence (official rules checked 2026-10-09)
 
-- **Integration depth:** installed DBC SDK dependency, read-only state inspection, direct SDK builder regression, and mode-aware inputs exist. No verified Invent export or on-chain writes.
-- **Technical execution:** TypeScript build and local test evidence listed below; production bundle is large and a bundler warning remains.
-- **Originality/taste:** explainable requirement intake, reusable recipes, comparisons, and readiness diagnostics are observable. Research does not establish that these are unique.
-- **Impact potential:** free offline planner can help compare candidate settings; interoperability is incomplete and no impact data exists.
-- **Traction/volume:** no adoption, pool, or transaction-volume evidence is provided. None is fabricated.
+The official rules list Functionality, Potential Impact, Novelty, UX, Open-source, and Business Plan. The campaign FAQ also describes Founder + Market Fit, Insight, Product + Execution, Potential Market Size, Founder Communication, Viability, and Traction. These are distinct official source presentations; use the final portal's current instructions if anything changes.
 
-**Readiness: CONDITIONALLY READY for a demo explicitly framed as an analytical planning MVP; NOT READY for claims of official Invent compatibility, protocol-exact simulation, or deployment readiness.** Confirm against the official current judging brief before submission.
+- **Functionality:** requirements wizard, recipe synthesis, comparison and readiness panel were manually exercised; 33 automated tests pass. Invent configuration validation/export and deployment are absent.
+- **Potential Impact:** a local planner could help developers reason about DBC inputs; no market sizing or ecosystem impact evidence exists.
+- **Novelty:** requirements intake and direct scenario consequences are implemented; unique differentiation is unproven.
+- **UX:** mode-specific inputs, local validation messages, and estimate/readiness distinctions are visible; no independent usability testing exists.
+- **Open-source:** source is locally committed, but there is no public repository URL and no license file. Public open-source readiness is incomplete pending owner approval, license choice, and third-party asset/code review.
+- **Business Plan:** the product description and cost/dependency notes exist; no validated demand, GTM, revenue, or scalable business model is established.
+
+**Readiness: CONDITIONALLY READY for a demo explicitly framed as an analytical planning MVP; NOT READY for claims of official Invent compatibility, protocol-exact simulation, public open-source readiness, or deployment readiness.** Portal registration, team details, pre-sprint work disclosure, repository publication/license, and both videos remain outstanding owner-controlled steps.
 
 ## Final command results (2026-10-09)
 
 - `npm test`: exit 0; 3 test files passed, 33 tests passed.
 - `npm run lint`: exit 0; oxlint produced no diagnostics.
-- `npm run build`: exit 0; `tsc -b` and Vite production build passed. Route/page and chart chunks are split. Vite still emits a >500 kB chunk warning for the 1,019.74 kB main JS chunk (278.13 kB gzip); chart chunk is 329.87 kB (95.92 kB gzip), CSS 49.96 kB (8.47 kB gzip).
+- `npm run build`: exit 0; `tsc -b` and Vite production build passed. Route/page, chart, and SDK chunks are split. The largest chunk is the Solana/Meteora SDK at 768.03 kB (198.97 kB gzip); main JS is 251.05 kB (78.82 kB gzip), chart chunk is 329.91 kB (95.95 kB gzip), CSS 49.99 kB (8.48 kB gzip). The final build command printed no chunk warning, though the SDK chunk remains above 500 kB.
 - SDK builder test scope: tests invoke all six installed builder functions with distinct valid inputs. They do not check CurveScope math parity.
 - RPC tests inject transport/account behavior; no live provider integration was run. Not run: Invent parser/CLI validation, JSONC round trip, or live state integration cases. No successful result is claimed for these.
 

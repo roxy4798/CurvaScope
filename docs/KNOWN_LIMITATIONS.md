@@ -7,7 +7,7 @@
 - The audited Invent template documents LP allocations totaling 100% and a minimum locked/vested allocation condition. CurveScope applies installed SDK validators to the entered LP inputs; those checks do not prove full Invent parser acceptance or validate an entire export. The specific template comments are not treated as universal protocol rules.
 - Local fee checks do not prove all combinations pass Invent or on-chain validation. The local migration fee ceiling follows audited Invent template 0–50%; installed SDK exposes broader generic numeric bounds.
 - Public RPC inspection is optional and depends on endpoint availability/rate limits. Injected test data is labeled as test evidence, never live. RPC fault coverage is unit-level with injected fetch/account readers; it does not constitute end-to-end testing against a live RPC provider.
-- Hackathon judging brief was not available for direct confirmation. Competitor claims are hypotheses; adoption, endorsements, and volume are not evidenced.
+- Official Crypto World's Fair rules and the campaign FAQ were checked 2026-10-09. Competitor claims remain hypotheses; adoption, endorsements, and volume are not evidenced.
 
 See [Protocol Audit](PROTOCOL_AUDIT.md) for the verified facts and evidence gaps.
 

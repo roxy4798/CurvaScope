@@ -48,7 +48,7 @@ Contains zero side effects and zero network dependencies; fully testable via uni
   - Multi-checkpoint slippage progression modeling (25%, 50%, 75%, 100%).
 - **`feeMath.ts`**: Base fee numerators, fee scheduler decay algorithms (linear and exponential decay), the documented DBC trading-fee split, creator/partner allocation of the configured non-protocol share, and post-graduation surplus division. These values are separate from migrated LP ownership.
 - **`validationEngine.ts`**: Selected local input checks for mode parameters and fee ranges; no keeper eligibility claim.
-- **`tradeOffEngine.ts`**: Quantitative heuristic scoring evaluating Capital Efficiency, Anti-Sniper Resistance, DAMM v2 Health, and Creator Retention.
+- **`tradeOffEngine.ts`**: Qualitative benefit/drawback explanations tied to selected recipe parameters; no composite ratings or outcome predictions.
 - **`scenarioComparison.ts`**: Aggregates candidate recipes and separates selected exact input arithmetic from derived values and assumption-dependent analytical estimates. It does not claim SDK or on-chain simulation parity.
 
 ### C. Protocol & Tooling Adapters (`src/adapters/`)
@@ -57,7 +57,7 @@ Contains zero side effects and zero network dependencies; fully testable via uni
 
 ### D. Data & Factory (`src/data/`)
 - **`recipeFactory.ts`**: Deterministic constructor turning raw launch requirements into full, validated recipes.
-- **`exampleRecipes.ts`**: 6 curated, battle-tested launch recipes across all major asset categories (AI Agent, RWA, Tokenized Stock Concept, Meme Fair Launch, Community DAO, Custom 16-Segment).
+- **`exampleRecipes.ts`**: 6 illustrative example recipes; these are not battle-tested, endorsed, or optimized configurations.
 
 ### E. Presentation Layer (`src/components/`, `src/pages/`)
 - React 19 + Tailwind CSS v4 design system with dark navy glassmorphism.

@@ -144,7 +144,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
             {validation.isValid ? (
               <span className="text-emerald-400 flex items-center space-x-1">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Protocol Rules Passed</span>
+                <span>Local Input Checks Passed</span>
               </span>
             ) : (
               <span className="text-rose-400 flex items-center space-x-1">
@@ -253,14 +253,14 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <h4 className="text-sm font-semibold text-white">
-                  Meteora DBC Concentrated Liquidity Segments
+                  CurveScope Analytical Curve Segments
                 </h4>
                 <p className="text-xs text-slate-400">
-                  Exact virtual liquidity $L_i$ and price boundaries defined in on-chain curve points.
+                  Floating-point visualization of the selected mode's price path. These values are not decoded from an on-chain curve and are not SDK-parity output.
                 </p>
               </div>
               <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
-                {segments.length} segment{segments.length > 1 ? 's' : ''} (Max 16)
+                {segments.length} analytical segment{segments.length > 1 ? 's' : ''}
               </span>
             </div>
 

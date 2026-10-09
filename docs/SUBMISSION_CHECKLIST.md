@@ -2,13 +2,16 @@
 
 Official Crypto World's Fair judging dimensions are published in the [official rules](https://colosseum.com/legal/Crypto%20World's%20Fair%20Hackathon%20Rules.pdf): Functionality, Potential Impact, Novelty, UX, Open-source, and Business Plan. The Colosseum campaign FAQ also describes seven broader evaluation areas, including Founder + Market Fit, Insight, Product + Execution, Potential Market Size, Founder Communication, Viability, and Traction. Use the official submission form and rules if wording differs. Do not present judge scores or guarantees.
 
-| Judging area | Observable evidence in MVP | Remaining gap |
+| Official rules criterion | Observable evidence | Honest gap |
 |---|---|---|
-| Meteora integration depth | DBC SDK 1.5.13 dependency; six SDK builder fixture test; read-only SDK state inspection; protocol-aware input checks | No Invent-validated export, exact chart parity, or transaction flow |
-| Technical execution | 33 unit tests, TypeScript production build, lint (see audit results); route-level lazy loading separates page and chart code | Main entry remains above Vite's 500 kB warning threshold; RPC fault tests use injected dependencies rather than a live provider |
-| Originality and taste | Requirements intake, explanatory recipes, pairwise scenario consequences, local readiness checklist | Differentiation vs other tools is not independently established; no user study |
-| Impact potential | Free offline developer workflow, reusable illustrative presets, mode-aware local validation, readiness diagnostics | No adoption or ecosystem impact data; export gap limits interoperability |
-| Traction / volume | No fabricated metrics; no paid dependency in core workflow | No user/volume evidence; no mainnet deployment feature |
+| Functionality | Requirements wizard, local recipe synthesis, comparison, readiness panel; offline browser walkthrough completed | Invent validation/export and deployment are absent; current tests/build are technical evidence, not independent protocol proof |
+| Potential Impact | Local-first developer planning for Meteora DBC; no mandatory paid service | No market sizing, user validation, or ecosystem impact data yet |
+| Novelty | Requirements-first intake plus direct scenario consequence explanations | Differentiation is a hypothesis; no comparative study |
+| UX | Mode-specific wizard, actionable input checks, visible distinction between local checks/estimates/unsupported export | Usability has not been tested with external builders |
+| Open-source | Repository is locally initialized and contains source/docs; no public URL exists yet | Must publish a repository after owner approval; confirm license and third-party asset/code attribution before release |
+| Business Plan | Cost/dependency statement and target user/problem description exist | No validated GTM, demand, revenue, or scalable business evidence; owner input needed |
+
+The campaign FAQ additionally describes Founder + Market Fit, Insight, Product + Execution, Potential Market Size, Founder Communication, Viability, and Traction. Those are evaluation context, not substitutes for the six criteria in the official rules.
 
 ## Submission package
 
