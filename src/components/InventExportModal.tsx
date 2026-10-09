@@ -8,6 +8,7 @@ import {
   FileText,
   Table,
   Code,
+  AlertTriangle,
 } from 'lucide-react';
 import type { DbcRecipe } from '../domain/types';
 import {
@@ -37,7 +38,7 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
   const readinessStatuses = [
     ['Analytical recipe', readiness.analyticalRecipe],
     ['Required inputs', readiness.requiredInputs],
-    ['Local checks', readiness.localValidation],
+    ['Local consistency checks', readiness.localValidation],
     ['Official Invent validation', readiness.officialInventValidation],
     ['On-chain deployment', readiness.onChainDeployment],
   ];
@@ -66,7 +67,7 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
     let mimeType = 'text/plain';
 
     if (activeTab === 'invent') {
-      filename += '_invent_export_disabled.txt';
+      filename += '_invent_analytical_draft_only.txt';
       mimeType = 'text/plain';
     } else if (activeTab === 'report') {
       filename += '_report.md';
@@ -101,10 +102,10 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-semibold text-white">
-                Export Recipe: {recipe.title}
+                Configuration Diagnostics & Export: {recipe.title}
               </h3>
               <p className="text-xs text-slate-400">
-                Analytical exports and Invent readiness diagnostics
+                Analytical draft exports and Meteora Invent readiness diagnostics
               </p>
             </div>
           </div>
@@ -129,7 +130,7 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
               }`}
             >
               <Code className="w-3.5 h-3.5" />
-                <span>Invent Export Status</span>
+              <span>Invent Readiness & Draft Diagnostics</span>
             </button>
 
             <button
@@ -174,8 +175,12 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
               onClick={handleCopy}
               className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition-all"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied!' : 'Copy Code'}</span>
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
+              <span>{copied ? 'Copied!' : activeTab === 'invent' ? 'Copy Draft Note' : 'Copy Code'}</span>
             </button>
 
             <button
@@ -191,8 +196,27 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
         {/* Code Content Preview */}
         <div className="p-6 flex-1 overflow-auto bg-[#070b14] font-mono text-xs text-slate-300">
           {activeTab === 'invent' && (
-            <div className="mb-5 rounded-xl border border-amber-800/70 bg-amber-950/20 p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mb-4">
+            <div className="mb-5 space-y-4">
+              {/* Prominent Warning Banner */}
+              <div className="rounded-xl border border-amber-600/70 bg-amber-950/40 p-4 space-y-2">
+                <div className="flex items-center space-x-2 text-amber-300 font-bold text-xs uppercase tracking-wide">
+                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>Critical Boundary: Analytical Draft Only — Not an Invent Configuration</span>
+                </div>
+                <p className="text-xs text-amber-200/90 leading-relaxed font-sans">
+                  Official Meteora Invent schema completeness and CLI parser acceptance are <strong>unverified</strong>.
+                  Do <strong>not</strong> copy this draft into <code className="bg-slate-900 px-1 py-0.5 rounded text-amber-100 font-mono">studio/config/dbc_config.jsonc</code> or use it to create on-chain pools.
+                </p>
+                <div className="text-[11px] font-sans text-amber-300/80 grid grid-cols-1 sm:grid-cols-2 gap-1 pt-1 border-t border-amber-800/40">
+                  <div>• Local Consistency Checks: <span className="text-emerald-400 font-semibold">Passed</span></div>
+                  <div>• Selected SDK Helper Checks: <span className="text-emerald-400 font-semibold">Applied Locally</span></div>
+                  <div>• Official Invent Parser Validation: <span className="text-amber-400 font-semibold">Not Verified</span></div>
+                  <div>• On-Chain Pool Deployment: <span className="text-rose-400 font-semibold">Unsupported</span></div>
+                </div>
+              </div>
+
+              {/* Status Tiles */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {readinessStatuses.map(([label, status]) => (
                   <div key={label} className="rounded-lg border border-amber-900/50 bg-slate-950/60 p-3">
                     <div className="text-[10px] uppercase tracking-wide text-slate-500">{label}</div>
@@ -200,35 +224,38 @@ export const InventExportModal: React.FC<InventExportModalProps> = ({
                   </div>
                 ))}
               </div>
-              <h4 className="text-sm font-semibold text-amber-200 mb-2">Field checklist and next actions</h4>
-              <div className="space-y-2">
-                {readiness.fields.map((item) => (
-                  <div key={item.field} className="grid grid-cols-1 md:grid-cols-[minmax(190px,0.8fr)_110px_1.3fr_1.5fr] gap-2 md:gap-3 border-t border-amber-900/40 pt-2">
-                    <code className="text-slate-200">{item.field}</code>
-                    <span className={item.state === 'complete' ? 'text-emerald-300' : item.state === 'unsupported' ? 'text-slate-400' : 'text-amber-300'}>{item.state}</span>
-                    <span className="text-slate-400">{item.reason}</span>
-                    <span className="text-amber-100/80">Next: {item.remedy}</span>
-                  </div>
-                ))}
+
+              {/* Field Checklist */}
+              <div className="rounded-xl border border-amber-800/50 bg-amber-950/20 p-4">
+                <h4 className="text-sm font-semibold text-amber-200 mb-2">Field checklist and next actions</h4>
+                <div className="space-y-2">
+                  {readiness.fields.map((item) => (
+                    <div key={item.field} className="grid grid-cols-1 md:grid-cols-[minmax(190px,0.8fr)_110px_1.3fr_1.5fr] gap-2 md:gap-3 border-t border-amber-900/40 pt-2">
+                      <code className="text-slate-200">{item.field}</code>
+                      <span className={item.state === 'complete' ? 'text-emerald-300' : item.state === 'unsupported' ? 'text-slate-400' : 'text-amber-300'}>{item.state}</span>
+                      <span className="text-slate-400">{item.reason}</span>
+                      <span className="text-amber-100/80">Next: {item.remedy}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <p className="mt-4 text-amber-200">No deployable config is generated. “Local checks passed” does not mean official Invent validation or deployment.</p>
             </div>
           )}
+
           <pre className="whitespace-pre-wrap leading-relaxed select-all">
             {getCurrentContent()}
           </pre>
         </div>
 
         {/* Instructions banner */}
-          <div className="px-6 py-3 border-t border-amber-800/80 bg-amber-950/30 text-xs text-amber-200 flex items-center justify-between">
+        <div className="px-6 py-3 border-t border-amber-800/80 bg-amber-950/30 text-xs text-amber-200 flex items-center justify-between">
           <div className="flex items-center space-x-2 font-mono">
-            <span className="text-orange-400 font-semibold">Invent Action:</span>
-            <span>Do not execute this draft with Meteora Invent.</span>
+            <span className="text-orange-400 font-semibold">Boundary Notice:</span>
+            <span>Analytical draft only. Do not execute with Meteora Invent or use for pool creation.</span>
           </div>
-          <span className="text-[11px] text-amber-200">Schema completeness and CLI acceptance are unverified</span>
+          <span className="text-[11px] text-amber-300/90 font-sans">Official CLI configurations must be authored independently</span>
         </div>
       </div>
     </div>
   );
 };
-

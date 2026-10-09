@@ -75,7 +75,7 @@ export const RecipeLibraryPage: React.FC<RecipeLibraryPageProps> = ({
           DBC Configuration Preset Hub
         </h2>
         <p className="text-sm text-slate-400 max-w-2xl mx-auto">
-          Browse illustrative launch recipes, compare their inputs, and review export readiness. Invent configuration export remains disabled.
+          Browse illustrative launch recipes, compare their inputs, and review Invent readiness & diagnostics. Invent configuration export remains disabled.
         </p>
       </div>
 
@@ -208,7 +208,7 @@ export const RecipeLibraryPage: React.FC<RecipeLibraryPageProps> = ({
                 <button
                   onClick={() => setSelectedRecipeForExport(recipe)}
                   className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
-                  title="Invent export status (currently disabled)"
+                  title="Invent readiness & diagnostics"
                 >
                   <Terminal className="w-4 h-4 text-orange-400" />
                 </button>

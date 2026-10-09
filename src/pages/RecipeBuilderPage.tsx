@@ -118,7 +118,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
               className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white text-xs font-bold transition-all shadow-md shadow-orange-500/20"
             >
               <Terminal className="w-3.5 h-3.5" />
-              <span>Export Invent CLI</span>
+              <span>Invent Readiness & Diagnostics</span>
             </button>
           </div>
         </div>
@@ -161,7 +161,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
         {[
           { id: 'curve', label: 'Curve Economics & Chart', icon: <Layers className="w-4 h-4" /> },
           { id: 'tradeoffs', label: 'Trade-Off & Reason Engine', icon: <Info className="w-4 h-4" /> },
-          { id: 'invent', label: 'Meteora Invent CLI Preview', icon: <Terminal className="w-4 h-4" /> },
+          { id: 'invent', label: 'Invent Readiness & Diagnostics', icon: <Terminal className="w-4 h-4" /> },
           { id: 'tune', label: 'Interactive Tuning Controls', icon: <Sliders className="w-4 h-4" /> },
         ].map((tab) => (
           <button
@@ -371,7 +371,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
                 Meteora Invent CLI Configuration (`studio/config/dbc_config.jsonc`)
               </h4>
               <p className="text-xs text-slate-400">
-                Draft only: schema completeness and CLI acceptance have not been verified.
+                Analytical draft only. Schema completeness and official Meteora Invent parser acceptance are unverified. Do not use this draft to create pools.
               </p>
             </div>
 
@@ -380,7 +380,7 @@ export const RecipeBuilderPage: React.FC<RecipeBuilderPageProps> = ({
               className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-orange-600 hover:bg-orange-500 text-white text-xs font-semibold"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Full Export Hub</span>
+              <span>View Configuration Diagnostics</span>
             </button>
           </div>
 

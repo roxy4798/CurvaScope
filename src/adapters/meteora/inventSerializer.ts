@@ -65,19 +65,51 @@ export function getInventExportReadiness(recipe: DbcRecipe): ConfigurationReadin
 }
 
 /**
- * Produces a CurveScope draft. This is not a complete Invent configuration and
- * must not be presented as directly executable without completing required fields.
- */
-/**
- * Returns a legacy configuration draft for inspection only. Not accepted as a
- * validated Invent configuration until the complete official fields are supplied.
+ * Returns an analytical configuration gap report and diagnostics summary.
+ * NOT an official Invent configuration. Export remains disabled.
  */
 export function formatInventJsonc(recipe: DbcRecipe): string {
-  return `/* NOT AN INVENT CONFIGURATION — export disabled pending schema-complete serialization and official parser validation.
- * Recipe: ${recipe.title} | buildCurveMode ${recipe.requirements.buildCurveMode}
- * CurveScope's current mode-specific geometry is analytical and must not be treated as SDK-equivalent.
- * See docs/PROTOCOL_AUDIT.md for required Invent fields and the verified source revision.
- */`;
+  const readiness = getInventExportReadiness(recipe);
+  const unrepresentedFields = readiness.fields.filter((f) =>
+    ['missing', 'invalid', 'conditional', 'not-verified', 'unsupported'].includes(f.state)
+  );
+
+  return `// ============================================================================
+// CURVESCOPE ANALYTICAL CONFIGURATION GAP REPORT — NOT AN INVENT CONFIGURATION
+// ============================================================================
+// Recipe: ${recipe.title} (ID: ${recipe.id})
+// Selected Builder Mode: Mode ${recipe.requirements.buildCurveMode}
+//
+// CRITICAL BOUNDARY NOTICE:
+// 1. Export is EXPLICITLY DISABLED. Schema completeness and official Meteora Invent
+//    parser acceptance are UNVERIFIED.
+// 2. DO NOT copy this draft into studio/config/dbc_config.jsonc or execute pool creation.
+// 3. Local consistency checks and selected SDK helper checks DO NOT equal official
+//    Invent CLI validation or on-chain transaction deployment.
+// 4. Official configurations must be authored and validated independently using current
+//    Meteora Invent tooling: https://docs.meteora.ag/developer-guides/dbc
+// ============================================================================
+
+// READINESS DIAGNOSTICS:
+// - Analytical Recipe:            ${readiness.analyticalRecipe.toUpperCase()}
+// - Required Inputs:              ${readiness.requiredInputs.toUpperCase()}
+// - Local Consistency Checks:     ${readiness.localValidation.toUpperCase()}
+// - Official Invent Validation:   NOT-VERIFIED
+// - On-Chain Deployment:          UNSUPPORTED
+
+// UNRESOLVED / MISSING / CONDITIONAL INVENT SCHEMA FIELDS (${unrepresentedFields.length} items):
+${unrepresentedFields
+  .map(
+    (item) => `// [${item.state.toUpperCase()}] ${item.field}
+//   Reason: ${item.reason}
+//   Action: ${item.remedy}`
+  )
+  .join('\n\n')}
+
+// ============================================================================
+// Official Meteora Invent Repository & Schema:
+// https://github.com/MeteoraAg/meteora-invent
+// ============================================================================`;
 }
 
 /**
@@ -91,7 +123,7 @@ export function formatHumanReadableReport(recipe: DbcRecipe): string {
 - **ID**: \`${recipe.id}\`
 - **Category**: \`${recipe.category}\`
 - **Generated**: ${recipe.createdAt}
-- **Local Checks**: ${validation.isValid ? 'PASSED (not protocol validated)' : 'INPUT ERRORS'}
+- **Local Consistency Checks**: ${validation.isValid ? 'PASSED (not protocol validated)' : 'INPUT ERRORS'}
 
 ---
 
@@ -118,11 +150,10 @@ ${recipe.description}
 
 ---
 
-## 3. Fee Schedule & Splits
+## 3. Dynamic Fee Architecture
 - **Base Fee**: ${(requirements.feePreferences.baseFeeBps / 100).toFixed(2)}% (${requirements.feePreferences.baseFeeBps} bps)
-- **Fee Decay Mode**: ${requirements.feePreferences.feeMode}
-- **Dynamic Fee Volatility Trap**: ${requirements.feePreferences.dynamicFeeEnabled ? 'ENABLED' : 'DISABLED'}
-- **Protocol trading-fee share**: 20% of trading fees. Separate from LP ownership and migration deductions.
+- **Fee Mode**: ${requirements.feePreferences.feeMode}
+- **Decay Duration**: ${requirements.feePreferences.decayDurationSeconds / 60} minutes
 - **Creator Fee Share**: ${requirements.feePreferences.creatorFeeSharePercent}% of non-protocol fees
 - **Partner Fee Share**: ${100 - requirements.feePreferences.creatorFeeSharePercent}% of non-protocol fees
 - **DAMM v2 Pool Fee**: ${(requirements.migrationPreferences.dammPoolFeeBps / 100).toFixed(2)}%
@@ -136,24 +167,17 @@ ${tradeOffs.items.map((it) => `- **${it.dimension}** (${it.choice}):\n  - Benefi
 
 ---
 
-## 5. Export status
-This output is a draft, not a safe direct Invent config. The current official schema also requires token, fee, migration, liquidityDistribution, lockedVesting, activationType, leftoverReceiver, feeClaimer, and dbcPool fields which this serializer does not fully provide. Complete and validate those in the official schema before use.
+## 5. Invent Configuration Readiness & Boundary Notice
+This report is an analytical planning draft, not a deployable Meteora Invent configuration.
+- Schema completeness: UNVERIFIED. The official schema requires token policy, full fee unions, migration fee schedules, complete LP allocation & vesting structures, locked token vesting, activation type, feeClaimer, leftoverReceiver, and dbcPool metadata which CurveScope does not fully represent.
+- Official Invent parser acceptance: UNVERIFIED.
+- On-chain deployment: UNSUPPORTED. Do NOT attempt to use this draft directly to create on-chain pools.
 
-Official source: https://github.com/MeteoraAg/meteora-invent/blob/main/studio/config/dbc_config.jsonc
+For official Meteora Invent configuration templates and documentation, see:
+- Official guide: https://docs.meteora.ag/developer-guides/dbc
+- Official schema: https://github.com/MeteoraAg/meteora-invent/blob/main/studio/config/dbc_config.jsonc
 
-## 6. Official Meteora CLI Instructions
-Only after completing and validating against the current Invent schema:
-\`\`\`bash
-# 1. Clone repository
-git clone https://github.com/MeteoraAg/meteora-invent.git
-cd meteora-invent
-pnpm install
-
-# 2. Paste the exported dbc_config.jsonc into studio/config/dbc_config.jsonc
-# 3. Create config & launch pool:
-pnpm studio dbc-create-config
-pnpm studio dbc-create-pool
-\`\`\`
+Configurations must be independently authored, completed, and validated using current official Meteora tooling.
 `;
 }
 
@@ -185,5 +209,3 @@ export function formatSegmentsCsv(recipe: DbcRecipe): string {
 
   return [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
 }
-
-
