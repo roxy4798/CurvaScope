@@ -50,20 +50,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 via-amber-500 to-sky-400 p-[2px] glow-orange transition-transform duration-300 group-hover:scale-105">
               <div className="w-full h-full bg-[#0b1120] rounded-[10px] flex items-center justify-center">
-                <span className="font-mono font-bold text-lg text-orange-400">CS</span>
+                <span className="font-mono font-bold text-lg text-orange-400">CP</span>
               </div>
             </div>
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-bold text-lg tracking-tight text-white group-hover:text-orange-400 transition-colors">
-                  CurveScope
+                  CurveProof
                 </span>
                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-orange-500/15 text-orange-400 border border-orange-500/30">
                   Meteora DBC
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 hidden sm:block">
-                Asset Launch Recipe Lab
+                DBC Config-to-Outcome Lab
               </p>
             </div>
           </div>
@@ -97,8 +97,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right cluster badge & status */}
           <div className="flex items-center space-x-3">
             <div className="hidden sm:flex items-center space-x-2 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-slate-300 font-mono text-[11px]">DBC SDK v1.5.13</span>
+              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span className="text-slate-300 font-mono text-[11px]">ANALYTICAL PROTOTYPE</span>
             </div>
 
             <button
