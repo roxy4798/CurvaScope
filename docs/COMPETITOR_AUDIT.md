@@ -4,8 +4,8 @@ Audit status: preliminary, not a market-wide competitor study. No uniqueness or 
 
 ## Observed product evidence
 
-- CurveScope has a requirements wizard, reusable illustrative recipe examples, approximate curve charts, side-by-side three-recipe comparisons, selected local validation, optional read-only SDK state lookup, and an Invent readiness checklist.
-- Meteora Invent's inspected repository provides JSONC DBC configuration and CLI workflows for configuration and pool actions. It is CurveScope's relevant official configuration tool. CurveScope does not currently serialize a complete Invent configuration and does not replace Invent.
+- CurveProof has a requirements wizard, reusable illustrative recipe examples, approximate curve charts, side-by-side three-recipe comparisons, selected local validation, optional read-only SDK state lookup, and an Invent readiness checklist.
+- Meteora Invent's inspected repository provides JSONC DBC configuration and CLI workflows for configuration and pool actions. It is CurveProof's relevant official configuration tool. CurveProof does not currently serialize a complete Invent configuration and does not replace Invent.
 - Other competitor rows previously included unsupported feature-exclusion and market claims. Those have been removed rather than repeated without current evidence.
 
 ## Product hypothesis
