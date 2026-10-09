@@ -17,7 +17,7 @@ export const App: React.FC = () => {
   const [activePage, setActivePage] = useState<ActivePage>('overview');
   const [recipes, setRecipes] = useState<DbcRecipe[]>(() => {
     try {
-      const stored = localStorage.getItem('curvescope_user_recipes');
+      const stored = localStorage.getItem('curveproof_user_recipes') || localStorage.getItem('curvescope_user_recipes');
       if (stored) {
         const parsed = JSON.parse(stored);
         return [...EXAMPLE_RECIPES, ...parsed];
@@ -45,7 +45,7 @@ export const App: React.FC = () => {
       // Filter only user-created recipes for localStorage
       const userOnly = updated.filter((r) => !r.isExample);
       try {
-        localStorage.setItem('curvescope_user_recipes', JSON.stringify(userOnly));
+        localStorage.setItem('curveproof_user_recipes', JSON.stringify(userOnly));
       } catch {
         // localStorage full or disabled
       }
@@ -59,7 +59,7 @@ export const App: React.FC = () => {
       const updated = prev.filter((r) => r.id !== recipeId);
       const userOnly = updated.filter((r) => !r.isExample);
       try {
-        localStorage.setItem('curvescope_user_recipes', JSON.stringify(userOnly));
+        localStorage.setItem('curveproof_user_recipes', JSON.stringify(userOnly));
       } catch {}
       return updated;
     });
