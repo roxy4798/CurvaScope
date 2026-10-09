@@ -1,6 +1,6 @@
-# CurveScope Architecture
+# CurveProof Architecture
 
-CurveScope is a local-first analytical planning MVP for Meteora Dynamic Bonding Curve (DBC) launches. Its architecture separates user input, local recipe calculations, selected input checks, scenario comparison, and optional read-only account inspection.
+CurveProof is a local-first analytical planning MVP for Meteora Dynamic Bonding Curve (DBC) launches. Its architecture separates user input, local recipe calculations, selected input checks, scenario comparison, and optional read-only account inspection.
 
 ## High-level flow
 
