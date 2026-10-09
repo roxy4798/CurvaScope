@@ -10,13 +10,13 @@ export const Footer: React.FC = () => {
           {/* Column 1: Identity */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
-              <span className="font-bold text-white text-sm">CurveScope</span>
+              <span className="font-bold text-white text-sm">CurveProof</span>
               <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
                 Free / Local-first
               </span>
             </div>
             <p className="text-slate-400 leading-relaxed text-xs">
-              Evidence-driven configuration and developer tooling for building better asset launches on Meteora Dynamic Bonding Curve (DBC) & DAMM v2.
+              Independent planning and research tooling for Meteora DBC and DAMM v2. Analytical outputs are not official validation; this project is not affiliated with or endorsed by Meteora.
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-6 border-t border-slate-900/80 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400">
-          <p>CurveScope · Crypto World's Fair — Meteora track planning MVP.</p>
+          <p>CurveProof · Crypto World's Fair — Meteora track planning MVP.</p>
           <p className="mt-2 sm:mt-0">
             Independent research & developer tooling. Not financial advice.
           </p>
