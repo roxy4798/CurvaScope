@@ -2,7 +2,7 @@
 
 ## Sources and package
 
-CurveScope uses installed `@meteora-ag/dynamic-bonding-curve-sdk@1.5.13` and Solana web3.js for optional read-only inspection. The SDK README lists DBC program ID `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN`. The requested [DBC developer guide](https://docs.meteora.ag/developer-guides/dbc) was inaccessible to the audit reader; formulas were checked at [DBC formulas](https://docs.meteora.ag/core-products/dbc/formulas). Invent source/config was inspected at commit `dd77ef3d5aede3f0ff21d566d052097200417f5e`.
+CurveProof uses installed `@meteora-ag/dynamic-bonding-curve-sdk@1.5.13` and Solana web3.js for optional read-only inspection. The SDK README lists DBC program ID `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN`. The requested [DBC developer guide](https://docs.meteora.ag/developer-guides/dbc) was inaccessible to the audit reader; formulas were checked at [DBC formulas](https://docs.meteora.ag/core-products/dbc/formulas). Invent source/config was inspected at commit `dd77ef3d5aede3f0ff21d566d052097200417f5e`.
 
 ## Invent builder modes
 
@@ -15,7 +15,7 @@ CurveScope uses installed `@meteora-ag/dynamic-bonding-curve-sdk@1.5.13` and Sol
 | 4 | `buildCurveWithMidPrice`: market caps, `midPrice`, migration percentage |
 | 5 | `buildCurveWithCustomSqrtPrices`: ascending decimal `prices` (2+), optional weights count `prices.length - 1` |
 
-CurveScope has mode-specific local inputs and validation. SDK builders are directly exercised in tests. CurveScope's own curve plots remain approximate for every mode and should not be described as SDK output. The analytical engine may draw a different number/shape of segments from the selected official builder contract.
+CurveProof has mode-specific local inputs and validation. SDK builders are directly exercised in tests. CurveProof's own curve plots remain approximate for every mode and should not be described as SDK output. The analytical engine may draw a different number/shape of segments from the selected official builder contract.
 
 ## Fees and migration
 
