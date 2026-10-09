@@ -16,8 +16,8 @@ import {
 import { validateDbcRequirements } from '../src/engine/validationEngine';
 import { analyzeTradeOffs } from '../src/engine/tradeOffEngine';
 import { EXAMPLE_REQUIREMENTS, EXAMPLE_RECIPES } from '../src/data/exampleRecipes';
-import { buildScenarioComparison } from '../src/engine/scenarioComparison';
-import { formatInventJsonc, getInventExportReadiness } from '../src/adapters/meteora/inventSerializer';
+import { buildScenarioComparison, resolveScenarioSlots } from '../src/engine/scenarioComparison';
+import { formatInventJsonc, formatHumanReadableReport, getInventExportReadiness } from '../src/adapters/meteora/inventSerializer';
 import { isValidPublicKey } from '../src/adapters/solana/readOnlyClient';
 import { MigrationOption, getLiquidityVestingInfoParams } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { validateLiquidityDistributionWithSdk } from '../src/engine/inventConstraints';
@@ -274,6 +274,36 @@ describe('CurveScope Adapters - Invent Serializer & Solana Helpers', () => {
     expect(readiness.fields.find((item) => item.field === 'LP allocations and permanent locks')?.state).toBe('missing');
   });
 
+  it('does not include risky CLI pool creation instructions in any exported format', () => {
+    const recipe = EXAMPLE_RECIPES[0];
+    const jsoncOutput = formatInventJsonc(recipe);
+    const reportMd = formatHumanReadableReport(recipe);
+
+    // Verify neither output advises pasting directly to dbc_config.jsonc or executing pool creation
+    expect(jsoncOutput).not.toContain('pnpm studio dbc-create-pool');
+    expect(jsoncOutput).not.toContain('pnpm studio dbc-create-config');
+    expect(jsoncOutput).not.toContain('Paste the exported dbc_config.jsonc');
+    expect(jsoncOutput).toContain('DO NOT copy this draft into studio/config/dbc_config.jsonc');
+    expect(jsoncOutput).toContain('Export is EXPLICITLY DISABLED');
+
+    expect(reportMd).not.toContain('pnpm studio dbc-create-pool');
+    expect(reportMd).not.toContain('pnpm studio dbc-create-config');
+    expect(reportMd).not.toContain('Paste the exported dbc_config.jsonc');
+    expect(reportMd).toContain('analytical planning draft, not a deployable Meteora Invent configuration');
+  });
+
+  it('verifies that official Invent validation is not-verified and deployment is unsupported across all presets', () => {
+    for (const recipe of EXAMPLE_RECIPES) {
+      const readiness = getInventExportReadiness(recipe);
+      expect(readiness.officialInventValidation).toBe('not-verified');
+      expect(readiness.onChainDeployment).toBe('unsupported');
+      expect(readiness.fields.length).toBeGreaterThanOrEqual(14);
+      expect(readiness.fields.some((f) => f.field === 'feeClaimer / leftoverReceiver')).toBe(true);
+      expect(readiness.fields.some((f) => f.field === 'Official Invent parser/config validation')).toBe(true);
+      expect(readiness.fields.some((f) => f.field === 'On-chain deployment')).toBe(true);
+    }
+  });
+
   it('does not reject valid off-curve program-derived addresses', () => {
     expect(isValidPublicKey('11111111111111111111111111111111')).toBe(true);
   });
@@ -293,6 +323,51 @@ describe('CurveScope Adapters - Invent Serializer & Solana Helpers', () => {
     expect(comparison.recipes.length).toBe(3);
     expect(comparison.metricsComparison.length).toBeGreaterThan(5);
     expect(comparison.slippageSimulation.length).toBe(4); // 25, 50, 75, 100%
+  });
+
+  it('keeps recipe, metrics, and comparison rows aligned across slot order changes', () => {
+    const permutations = [
+      [EXAMPLE_RECIPES[5], EXAMPLE_RECIPES[2], EXAMPLE_RECIPES[0]],
+      [EXAMPLE_RECIPES[5], EXAMPLE_RECIPES[0], EXAMPLE_RECIPES[2]],
+      [EXAMPLE_RECIPES[2], EXAMPLE_RECIPES[5], EXAMPLE_RECIPES[0]],
+      [EXAMPLE_RECIPES[2], EXAMPLE_RECIPES[0], EXAMPLE_RECIPES[5]],
+      [EXAMPLE_RECIPES[0], EXAMPLE_RECIPES[5], EXAMPLE_RECIPES[2]],
+      [EXAMPLE_RECIPES[0], EXAMPLE_RECIPES[2], EXAMPLE_RECIPES[5]],
+    ];
+
+    for (const expectedRecipes of permutations) {
+      const slots = resolveScenarioSlots(EXAMPLE_RECIPES, expectedRecipes.map((recipe) => recipe.id));
+      const resolved = slots.filter((recipe) => recipe !== undefined);
+      const comparison = buildScenarioComparison(resolved);
+      const feeMetric = comparison.metricsComparison.find((metric) => metric.label === 'Initial Base Fee & On-Chain Numerator');
+
+      expect(slots.map((recipe) => recipe?.id)).toEqual(expectedRecipes.map((recipe) => recipe.id));
+      expect(slots.map((recipe) => recipe?.requirements.quoteSymbol)).toEqual(expectedRecipes.map((recipe) => recipe.requirements.quoteSymbol));
+      expect(slots.map((recipe) => recipe?.requirements.targetQuoteRaise)).toEqual(expectedRecipes.map((recipe) => recipe.requirements.targetQuoteRaise));
+      expect(slots.map((recipe) => recipe?.requirements.buildCurveMode)).toEqual(expectedRecipes.map((recipe) => recipe.requirements.buildCurveMode));
+      expect(comparison.recipes.map((recipe) => recipe.id)).toEqual(expectedRecipes.map((recipe) => recipe.id));
+      expect(expectedRecipes.every((recipe) => feeMetric?.values[recipe.id]?.toString().startsWith(`${recipe.requirements.feePreferences.baseFeeBps} bps`))).toBe(true);
+      expect(comparison.slippageSimulation.every((point) => expectedRecipes.every((recipe) => recipe.id in point.priceQuote))).toBe(true);
+    }
+  });
+
+  it('leaves missing and empty recipe slots unresolved instead of reusing stale data', () => {
+    const selectedIds = ['missing-recipe', EXAMPLE_RECIPES[2].id, ''];
+    const slots = resolveScenarioSlots(EXAMPLE_RECIPES, selectedIds);
+
+    expect(slots).toHaveLength(3);
+    expect(slots[0]).toBeUndefined();
+    expect(slots[1]?.id).toBe(EXAMPLE_RECIPES[2].id);
+    expect(slots[2]).toBeUndefined();
+    expect(resolveScenarioSlots(EXAMPLE_RECIPES, ['missing-recipe'])).toEqual([undefined]);
+  });
+
+  it('does not put the same recipe into multiple comparison slots', () => {
+    const duplicateId = EXAMPLE_RECIPES[0].id;
+    const slots = resolveScenarioSlots(EXAMPLE_RECIPES, [duplicateId, duplicateId, EXAMPLE_RECIPES[2].id]);
+
+    expect(slots.map((recipe) => recipe?.id)).toEqual([duplicateId, undefined, EXAMPLE_RECIPES[2].id]);
+    expect(new Set(slots.flatMap((recipe) => recipe ? [recipe.id] : [])).size).toBe(2);
   });
 
   it('explains direct parameter consequences without producing an opaque rank', () => {

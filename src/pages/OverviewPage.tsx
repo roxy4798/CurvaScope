@@ -29,11 +29,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
       <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 text-center space-y-6">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-mono">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Crypto World's Fair â€” Meteora Track MVP</span>
+          <span>Crypto World's Fair · Meteora Track MVP</span>
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-[1.15]">
-          Evidence-Driven Configuration for Better Asset Launches on{' '}
+          Plan and Compare Asset Launch Settings on{' '}
           <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-sky-400 bg-clip-text text-transparent">
             Meteora DBC
           </span>

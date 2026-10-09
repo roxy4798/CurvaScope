@@ -1,6 +1,22 @@
 import type { DbcRecipe, ScenarioComparison } from '../domain/types';
 import { simulateCurveSlippageProgression } from './curveMath';
 
+/** Resolve comparison slots in the same order as the user's selected IDs. */
+export function resolveScenarioSlots(
+  allRecipes: DbcRecipe[],
+  selectedIds: string[],
+): Array<DbcRecipe | undefined> {
+  const recipesById = new Map(allRecipes.map((recipe) => [recipe.id, recipe]));
+  const resolvedIds = new Set<string>();
+
+  return selectedIds.map((id) => {
+    const recipe = recipesById.get(id);
+    if (!recipe || resolvedIds.has(id)) return undefined;
+    resolvedIds.add(id);
+    return recipe;
+  });
+}
+
 /**
  * Builds an analytical side-by-side comparison across candidate DBC recipes.
  * Strictly categorizes metrics into:

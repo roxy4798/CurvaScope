@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'recharts';
 import type { DbcRecipe } from '../domain/types';
-import { buildScenarioComparison } from '../engine/scenarioComparison';
+import { buildScenarioComparison, resolveScenarioSlots } from '../engine/scenarioComparison';
 import { explainScenarioDifferences } from '../engine/scenarioInsights';
 
 interface ComparisonPageProps {
@@ -29,7 +29,8 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({
     allRecipes[2]?.id || '',
   ]);
 
-  const candidateRecipes = allRecipes.filter((r) => selectedIds.includes(r.id)).slice(0, 3);
+  const scenarioSlots = resolveScenarioSlots(allRecipes, selectedIds);
+  const candidateRecipes = scenarioSlots.filter((recipe): recipe is DbcRecipe => Boolean(recipe));
   const comparison = buildScenarioComparison(candidateRecipes);
   const practicalDifferences = explainScenarioDifferences(candidateRecipes);
 
@@ -100,7 +101,7 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({
       {/* 3 Recipe Selector Slots */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[0, 1, 2].map((slotIdx) => {
-          const currentRecipe = candidateRecipes[slotIdx];
+          const currentRecipe = scenarioSlots[slotIdx];
           const color = colors[slotIdx];
 
           return (
@@ -119,18 +120,23 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({
               </div>
 
               <select
-                value={selectedIds[slotIdx] || ''}
+                value={currentRecipe?.id || ''}
                 onChange={(e) => handleSelectSlot(slotIdx, e.target.value)}
                 className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-white focus:outline-none focus:border-orange-500 font-sans"
               >
+                <option value="">Select a recipe…</option>
                 {allRecipes.map((r) => (
-                  <option key={r.id} value={r.id}>
+                  <option
+                    key={r.id}
+                    value={r.id}
+                    disabled={selectedIds.some((selectedId, selectedIndex) => selectedIndex !== slotIdx && selectedId === r.id)}
+                  >
                     {r.title} ({r.category})
                   </option>
                 ))}
               </select>
 
-              {currentRecipe && (
+              {currentRecipe ? (
                 <div className="text-xs text-slate-400 space-y-1 pt-1">
                   <div className="flex justify-between">
                     <span>Quote:</span>
@@ -156,11 +162,19 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({
                     </button>
                   </div>
                 </div>
+              ) : (
+                <p className="text-xs text-slate-500 pt-1">Select an available recipe for this slot.</p>
               )}
             </div>
           );
         })}
       </div>
+
+      {candidateRecipes.length < 2 && (
+        <p className="text-sm text-amber-300 text-center" role="status">
+          Select at least two distinct available recipes to compare their results.
+        </p>
+      )}
 
       <section className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
         <div>
@@ -168,7 +182,7 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({
           <p className="mt-1 text-xs text-slate-400">Direct consequences of entered values; no combined ranking or profitability claim.</p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-          {practicalDifferences.map((pair) => <article key={`${pair.firstTitle}:${pair.secondTitle}`} className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
+          {practicalDifferences.map((pair, pairIndex) => <article key={`${pair.firstTitle}:${pair.secondTitle}:${pairIndex}`} className="rounded-xl border border-slate-800 bg-slate-950/50 p-4">
             <h4 className="text-xs font-semibold text-orange-200">{pair.firstTitle} <span className="text-slate-500">vs</span> {pair.secondTitle}</h4>
             <ul className="mt-3 space-y-2 list-disc list-inside text-[11px] leading-relaxed text-slate-300">
               {pair.differences.map((difference) => <li key={difference}>{difference}</li>)}
